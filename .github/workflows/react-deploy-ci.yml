@@ -27,14 +27,14 @@
           with:
             node-version: 20
         - name: install frontend
-          run: |
-            cd frontend
+          run: 
+            #cd frontend
             npm install
         - name: Build frontend Package
           env:
             CI: false
-          run: |
-            cd frontend
+          run: 
+            #cd frontend
             npm run build
       #code coverage can be set up later - codecovio
         #- name: Test & Code Coverage
