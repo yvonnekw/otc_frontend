@@ -29,13 +29,11 @@
             node-version: 20
         - name: install frontend
           run: 
-            #cd frontend
             npm install
         - name: Build frontend Package
           env:
             CI: false
           run: 
-            #cd frontend
             npm run build
 
         - name: Logging to Docker
@@ -50,20 +48,8 @@
             push: true
             tags: yvonnetest/otc-vite-react-frontend-image:latest
             dockerfile: Dockerfile
-            #context: otc-backend
-      #code coverage can be set up later - codecovio
-        #- name: Test & Code Coverage
-          #run: npm test -- --coverage
-
-        #- name: Upload Code Coverage
-         # uses: codecov/codecov-action@v1
-          #with:
-            #token:  ${{ secrets.CODECOV_TOKEN }}
+       
 
 
-       # - name: Build Package
-          #env:
-           # CI: false
-          #run: npm run build
 
 
