@@ -66,7 +66,7 @@ export async function getUnpaidCallsByUsername(username: string): Promise<any> {
 export const enterCall = async (call: any): Promise<any> => {
   try {
     const response = await axios.post(
-      REST_API_BASE_URL + "/calls/make/call",
+      REST_API_BASE_URL + "/calls/make-call",
       call,
       {
         headers: basicHeader,
@@ -83,7 +83,7 @@ export const getCallReceiversForUser = async (
 ): Promise<any> => {
   try {
     const response = await axios.get(
-      `${REST_API_BASE_URL}/callreceiver/phone-numbers?username=${username}`,
+      `${REST_API_BASE_URL}/call-receiver/phone-numbers?username=${username}`,
       {
         headers: basicHeader,
       }
@@ -100,7 +100,7 @@ export const checkPhoneNumberExists = async (
 ): Promise<any> => {
   try {
     const response = await axios.get(
-      `${REST_API_BASE_URL}/callreceiver/phone-numbers?username=${username}&telephone=${phoneNumber}`,
+      `${REST_API_BASE_URL}/call-receiver/phone-numbers?username=${username}&telephone=${phoneNumber}`,
       {
         headers: basicHeader,
       }

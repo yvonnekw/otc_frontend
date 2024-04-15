@@ -8,7 +8,7 @@ export async function addReceiver(
 ): Promise<boolean> {
   try {
     const response: AxiosResponse = await api.post(
-      `/callreceiver/add/reciever`,
+      `/call-receiver/add/receiver`,
       {
         telephone: telephone,
         username: username,
@@ -27,7 +27,7 @@ export async function addReceiver(
 export async function getTelephoneNumbers(username: string): Promise<string[]> {
   try {
     const response: AxiosResponse = await api.get(
-      `/callreceiver/phone-numbers?username=${username}`,
+      `/call-receiver/phone-numbers?username=${username}`,
       {
         headers: basicHeader, // Assuming headers is defined somewhere
       }

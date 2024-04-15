@@ -349,16 +349,16 @@ const MakeCall: React.FC = () => {
                 const call = {
                     startTime: startTime,
                     endTime: endTime,
-                    duration: duration,
-                    costPerMinute: ratePerSecond * 60, // Assuming cost is per minute
+                   // duration: duration,
+                   // costPerMinute: ratePerSecond * 60, // Assuming cost is per minute
                     discountForCalls: discount,
-                    vat: taxRate,
-                    netCost: netCost,
-                    grossCost: grossCost,
+                   // vat: taxRate,
+                   // netCost: netCost,
+                  ////  grossCost: grossCost,
                     totalCost: totalCost,
                     username: currentUser,
                     telephone: selectedTelephoneNumber,
-                    callDate: callDate,
+                    //callDate: callDate,
                 };
 
                 try {

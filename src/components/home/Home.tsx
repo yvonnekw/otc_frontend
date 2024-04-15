@@ -1,20 +1,20 @@
 import React from 'react';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
-import HeaderMain from '../layout/HeaderMain';
+import { Link, useLocation } from 'react-router-dom';
+//import HeaderMain from '../layout/HeaderMain';
 
 const Home = () => {
   const location = useLocation();
   const message = location.state && location.state.message;
   const currentUser = localStorage.getItem("userId");
 
-  const navigator = useNavigate();
+ // const navigator = useNavigate();
 
   return (
     <section>
       {message && <p className='text-warning px-5'>{message}</p>}
       {currentUser && <h6 className='text-success text-center'>You are logged in as: {currentUser}</h6>}
       <div className="container mt-5">
-        <h2 className="mb-4">Welcome to Optical Telephone Company</h2>
+        <h2 className="mb-4" >Welcome to Optical Telephone Company</h2>
         <p className="lead">
           Optical Telephone Company platform where you can initiate and manage calls easily.
         </p>
