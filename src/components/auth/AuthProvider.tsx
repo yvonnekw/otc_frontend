@@ -15,7 +15,8 @@ interface DecodedToken {
 interface AuthContextType {
   user: User | null;
   role: string | null; // Add role information
-  handleLogin: (token: string, decodedToken: DecodedToken) => void; // Update handleLogin function
+  //handleLogin: (token: string, decodedToken: DecodedToken) => void; // Update handleLogin function
+  handleLogin: (token: string) => void; // Update handleLogin function
   handleLogout: () => void;
   isLoggedIn: () => boolean;
 }
