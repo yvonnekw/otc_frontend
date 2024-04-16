@@ -1,9 +1,4 @@
-  #on:
-    #push:
-      #branches: [main]
-        #- pull_request:
-
-  name: react vite ci
+name: react vite ci
   on:
     push:
       branches: [ "main" ]
