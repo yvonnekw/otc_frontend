@@ -1,4 +1,5 @@
-name: react vite ci
+
+  name: react vite ci
   on:
     push:
       branches: [ "main" ]
