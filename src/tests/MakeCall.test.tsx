@@ -1,30 +1,33 @@
 import { render, screen } from "@testing-library/react";
+import  MakeCall  from "../components/calls/MakeCall"
 import React from "react";
-import { BrowserRouter as Router } from 'react-router-dom';
-import Login from "../components/auth/Login";
 
-describe('Login Page tests',() =>{
-    it("should verify the login text", () => {
+
+import { BrowserRouter as Router } from 'react-router-dom';
+
+
+describe("", () => {
+    it("should verify the home welcome message is heading 1", () => {
         render(
             <Router>
-                <Login />
+                <MakeCall />
             </Router>
         );
-
-        const message = screen.queryByText(/Login here/)
-    expect(message).toBeVisible
+        expect(screen.getByRole('heading', { level: 1, })
+        ).toHaveTextContent('Welcome to Optical Telephone Company')
         
     });
 
     it("Page should not contain a second level heading (<h2> element)", () => {
         render(
             <Router>
-                <Login />
+                <MakeCall />
             </Router>
         );
         const secondLevelHeadings = screen.queryAllByRole("heading", { level: 2 });
         expect(secondLevelHeadings.length).toBe(0);
 
     })
+
 
 });
