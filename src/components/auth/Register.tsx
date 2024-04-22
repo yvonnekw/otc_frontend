@@ -135,7 +135,7 @@ const Register: React.FC = () => {
 
             <div className='row'>
                 <div className='card col-md-6 offset-md-3 offset-md-3'>
-                    <h2 className='text-center'>Register here</h2>
+                    <h1 className='text-center'>Register here</h1>
                     <div className='card-body'>
                         <form onSubmit={saveUser2}>
                             <div className='form-group mb-2'>
@@ -200,8 +200,8 @@ const Register: React.FC = () => {
                                 {errors.password && <div className='invalid-feedback'>{errors.password}</div>}
                             </div>
                             <div>
-                                <button type='submit' className='btn btn-success'>Submit</button>
-                                <span style={{ marginLeft: "10px" }}>Already registered? <Link to="/login">login here</Link></span>
+                                <button type='submit' className='btn-otc btn-otc:hover'>Submit</button>
+                                <span style={{ marginLeft: "10px" }}>Already registered? <a href="#" data-name="login here">login here</a></span>
                             </div>
                         </form>
                     </div>

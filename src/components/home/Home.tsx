@@ -11,7 +11,7 @@ const Home = () => {
       {message && <p className='text-warning px-5'>{message}</p>}
       {currentUser && <h6 className='text-success text-center'>You are logged in as: {currentUser}</h6>}
       <div className="container mt-5">
-        <h2 className="mb-4" >Welcome to Optical Telephone Company</h2>
+        <h1 className="mb-4" >Welcome to Optical Telephone Company</h1>
         <p className="lead">
           Optical Telephone Company platform where you can initiate and manage calls easily.
         </p>

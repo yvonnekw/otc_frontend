@@ -29,5 +29,54 @@ describe("", () => {
 
     })
 
+    it("form label should correctly associate with a form control.", () => {
+        render(
+            <Router>
+                <MakeCall />
+            </Router>
+        );
+       
+        const formLabel = screen.getByText('Your Form Label Text');
+
+        const formControl = screen.getByLabelText('Your Form Label Text');
+
+        expect(formLabel).toBe(formControl.id);
+
+    });
+
+    it("should ensure all form labels are correctly associated with their form controls", () => {
+
+        const formLabels = screen.getAllByRole('formlabel');
+
+        formLabels.forEach(formLabel => {
+            const formControlId = formLabel.getAttribute('aria-labelledby');
+            const formControl = screen.getAllByLabelText("form - label"); 
+            expect(formControl).toBeTruthy();
+        });
+    });
+
+    it("should ensure all form controls has a corresponding label", () => {
+
+        const formControls = screen.getAllByRole('textbox', { name: /form - control/i }); // Assuming form controls have "form - control" in their label text
+
+        formControls.forEach(formControl => {
+            const formControlId = formControl.getAttribute('aria-labelledby');
+            const associatedLabel = screen.getAllByLabelText("form - label");
+
+            expect(associatedLabel).toBeTruthy();
+        });
+    });
+
+    it("should ensure all form controls has a corresponding label", () => {
+
+        const formControls = screen.getAllByRole('textbox', { name: /form - control/i }); // Assuming form controls have "form - control" in their label text
+
+        formControls.forEach(formControl => {
+            const formControlId = formControl.getAttribute('aria-labelledby');
+            const associatedLabel = screen.getAllByLabelText("form - label");
+
+            expect(associatedLabel).toBeTruthy();
+        });
+    });
 
 });

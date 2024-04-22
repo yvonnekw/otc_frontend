@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Register from "../components/auth/Register";
 
-describe('Login Page tests',() =>{
+describe('Register Page Accessibility tests',() =>{
     it("should verify the login text", () => {
         render(
             <Router>
@@ -16,7 +16,7 @@ describe('Login Page tests',() =>{
         
     });
 
-    it("Page should not contain a second level heading (<h2> element)", () => {
+    it("should ensure page contains a one-level heading", () => {
         render(
             <Router>
                 <Register />
@@ -54,9 +54,24 @@ describe('Login Page tests',() =>{
                 <Register />
             </Router>
         );
-        // expect(screen.getByRole('form', { level: 1, })
+        // Query for all anchor elements
+        const anchorElements = screen.getAllByRole('link');
 
+        console.log("all links " + anchorElements.length)
 
+        // Extract href attribute values and store unique values in a Set
+        const hrefSet = new Set();
+        anchorElements.forEach((anchor) => {
+            hrefSet.add(anchor.getAttribute('href'));
+
+            console.log("" + hrefSet.size)
+
+        });
+
+        // Check if the number of unique href values is equal to the total number of anchor elements
+        expect(hrefSet.size).toBe(anchorElements.length);
+  
+    
     })
 
 
