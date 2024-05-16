@@ -41,7 +41,7 @@ const Dashboard: React.FC = () => {
                 <p className="card-text">
                   View your call history and details of past calls.
                 </p>
-                <Link to="/call-history" className="mb-2 md-mb-0">View Call History</Link>
+                <Link to="/user-calls" className="mb-2 md-mb-0">View Call History</Link>
               </div>
             </div>
 

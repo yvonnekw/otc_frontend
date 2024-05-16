@@ -60,12 +60,12 @@ body {
 }
 
 /* Hotel custom color */
-.btn-hotel {
-    background-color: rgb(169, 126, 77);
+.btn-otc {
+    background-color: rgb(105, 66, 21);
     color: #fff;
 }
 
-.btn-hotel:hover {
+.btn-otc:hover {
     background-color: rgb(137, 127, 132);
     color: #fff;
     transition: 0.7s;
@@ -75,7 +75,7 @@ body {
 }
 
 .otc-color {
-    color: rgb(169, 128, 77);
+    color: rgb(75, 45, 7);
 }
 
 .room-price {

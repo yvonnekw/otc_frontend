@@ -55,7 +55,7 @@ const Login: React.FC = () => {
       {errMsg && <p className='alert alert-danger'>{errMsg}</p>}
       <div className='row'>
         <div className='card col-md-6 offset-md-3 offset-md-3'>
-          <h2 className='text-center'>Login here</h2>
+          <h1 className='text-center'>Login here</h1>
           <div className='card-body'>
             <form onSubmit={handleSubmit}>
               <div className='form-group mb-2'>
@@ -89,7 +89,7 @@ const Login: React.FC = () => {
               <div className="mb-3">
                 <button
                   type="submit"
-                  className='btn btn-success'
+                  className='btn-otc btn-otc:hover'
                   style={{ marginRight: "10px" }}
                 >
                   Login

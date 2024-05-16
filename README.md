@@ -39,4 +39,11 @@ All the files will be compiled into the dist folder as a result. This is what Do
 
 For information on how to deploy the application, see the README.md file in the backend directory.
 
+## Run tests locally
+The following commnan will execute all the tests
+`npm run test`
+
+### Filter a test to run
+To run for example the test for NavBarTest.ts, filter it out this way and execute the following command -
+`npm run test NavBar`
 https://github.com/yvonnekw/otc_backend

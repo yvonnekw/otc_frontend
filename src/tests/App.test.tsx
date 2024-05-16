@@ -4,6 +4,8 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
 
+describe("", ()  =>{
+
     it("Renders not found if invalid path", () => {
 
         render(
@@ -12,4 +14,6 @@ import { MemoryRouter } from "react-router-dom";
             </MemoryRouter>
         )
 
-    })
+    });
+
+});

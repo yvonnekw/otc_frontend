@@ -33,7 +33,8 @@
       "vitest/globals"
     ],
     "include": [
-        "src"
+        "src",
+        "vite.config.ts"
     ]
 
     /* Projects */

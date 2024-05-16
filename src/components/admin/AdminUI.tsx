@@ -43,26 +43,3 @@ const AdminUI: React.FC = () => {
 
 export default AdminUI;
 
-/*
-const AdminUI = () => {
-  return (
-    <>
-    <section className='container mt-5'>
-      <h2>Welcome to the Admin Panel</h2>
-    </section>
-      <Link to={"/calls"}>
-        Manage Calls
-      </Link>
-
-
-
-    <div>
-      <ListCallsComponent />
-      </div>
-      
-      </>
-  )
-}
-
-export default AdminUI
-*/

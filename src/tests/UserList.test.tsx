@@ -5,12 +5,12 @@ import React from "react";
 import { expect } from "vitest";
 
 describe('User List Page tests',() =>{
-it("should verify the User List text", () => {
-    render(<UserList />)
+    it("should verify the User List text", () => {
+        render(<UserList />)
 
-    const message = screen.queryByText(/User List/)
-    expect(message).toBeVisible
-    
-});
+        const message = screen.queryByText(/User List/)
+        expect(message).toBeVisible
+        
+    });
 
 });
