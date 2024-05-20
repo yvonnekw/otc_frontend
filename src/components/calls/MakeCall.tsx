@@ -44,13 +44,13 @@ const MakeCall: React.FC = () => {
     const [newCall, setNewCall] = useState({
         startTime: "",
         endTime: "",
-        duration: "", // Add duration property here
-        callCost: "",
+       // duration: "", // Add duration property here
+      //  callCost: "",
         discount: "",
-        totalCost: "",
-        netCost: "",
-        grossCost: "",
-        taxAmount: "",
+       // totalCost: "",
+        //netCost: "",
+        //grossCost: "",
+       // taxAmount: "",
         telephone: "",
         callDate: "",
     });
@@ -58,13 +58,13 @@ const MakeCall: React.FC = () => {
     const [errors, setErrors] = useState({
         startTime: "",
         endTime: "",
-        duration: "", // Add duration property here
-        callCost: "",
+       // duration: "", // Add duration property here
+       // callCost: "",
         discount: "",
-        totalCost: "",
-        netCost: "",
-        grossCost: "",
-        taxAmount: "",
+       // totalCost: "",
+       // netCost: "",
+       // grossCost: "",
+       // taxAmount: "",
         callDate: "",
     });
 
@@ -363,7 +363,7 @@ const MakeCall: React.FC = () => {
 
                 try {
                     const isValid = await checkPhoneNumberExists(currentUser ?? '', selectedTelephoneNumber);
-                    console.log(isValid);
+                    console.log("phone number and user " + isValid);
                     const response = await enterCall(call);
                     console.log(response.data);
                     if (response && response.data && response.data.callId) {
@@ -372,15 +372,16 @@ const MakeCall: React.FC = () => {
                         setNewCall({
                             startTime: "",
                             endTime: "",
-                            callCost: "",
-                            duration: "",
+                          //  callCost: "",
+                          //  duration: "",
                             discount: "",
-                            totalCost: "",
-                            netCost: "",
-                            grossCost: "",
-                            taxAmount: "",
+                            //totalCost: "",
+                           // netCost: "",
+                           // grossCost: "",
+                           // taxAmount: "",
                             telephone: "",
-                            callDate: ""});
+                            callDate: ""
+                        });
                         setStartTime("");
                         setEndTime("");
                         setDiscount(0);
@@ -406,7 +407,8 @@ const MakeCall: React.FC = () => {
         if (startTime.trim()) {
             errorsCopy.startTime = "";
         } else {
-            errorsCopy.startTime = "Start time required";
+            errorsCopy.startTime = "Start time required"
+            
             valid = false;
         }
 

@@ -8,7 +8,7 @@ export async function addReceiver(
 ): Promise<boolean> {
   try {
     const response: AxiosResponse = await api.post(
-      `/call-receiver/add/receiver`,
+      `/call-receiver/add-receiver`,
       {
         telephone: telephone,
         username: username,

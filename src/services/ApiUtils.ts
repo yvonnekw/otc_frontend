@@ -1,7 +1,12 @@
 import axios, { AxiosInstance } from "axios";
 
+const backendUrl = process.env.BACKEND_URL || 'http://localhost';
+const backendPort = process.env.BACKEND_PORT || '8000'; 
+
+const backendBaseUrl = `${backendUrl}:${backendPort}`;
+
 export const api: AxiosInstance = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: backendBaseUrl //"http://localhost:8000",
 });
 
 export const basicHeader = {
