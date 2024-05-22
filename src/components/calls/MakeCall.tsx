@@ -100,7 +100,7 @@ const MakeCall: React.FC = () => {
         });
     };
 
-
+/*
     function parseTime(value: string): string {
         const parts = value.split(":").map(Number);
         const hours = parts[0];
@@ -117,7 +117,7 @@ const MakeCall: React.FC = () => {
 
         return formattedTime;
     }
-
+*/
 
     const selectedCallIdsMapped = selectedCallIds.map((callId) => ({
         callId: callId,
@@ -130,7 +130,7 @@ const MakeCall: React.FC = () => {
     const handleProceedToPayment = () => {
         navigate(`/payment?userId=${userId}&netCost=${netCost}&invoiceId=${invoiceId}`);
     };
-
+/*
     const handleCallInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
         let value = e.target.value;
@@ -147,7 +147,7 @@ const MakeCall: React.FC = () => {
         }
         setNewCall({ ...newCall, [name]: value });
     };
-
+*/
 
     const handleTelephoneNumberInputChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const name = e.target.name;
@@ -285,7 +285,7 @@ const MakeCall: React.FC = () => {
     }, [currentUser]);
 
     // Function to calculate total time, call cost, and total cost
-    const calculateTotalTime = () => {
+ /*   const calculateTotalTime = () => {
         // Assuming parseTime function is defined somewhere
         const parseTime = (time: string) => {
             const [hours, minutes, seconds] = time.split(":").map(Number);
@@ -337,14 +337,14 @@ const MakeCall: React.FC = () => {
             console.log("gross cost: ", grossCost)
             console.log("netCost value: ",netCost)
         }
-    };
+    };*/
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         if (isLoggedIn()) {
             if (validateForm()) {
-                calculateTotalTime();
+               // calculateTotalTime();
 
                 const call = {
                     startTime: startTime,
@@ -429,7 +429,7 @@ const MakeCall: React.FC = () => {
             <div className="row">
                 <div className="card col-md-6 offset-md-3 offset-md-3">
                     <h2 className="text-center">New call</h2>
-                    {/* display call date here */}
+                
                     <div className="form-group mb-2">
                         <label className="form-label">Call Date</label>
                         <input
