@@ -6,6 +6,7 @@ import  { AuthContext } from './AuthProvider';
 
 
 interface User {
+  username: string;
   firstName: string;
   lastName: string;
   emailAddress: string;
@@ -17,7 +18,10 @@ interface Call {
   callId: string;
   startTime: string;
   endTime: string;
+  receiver: { telephone: string }[];
+  status: string;
 }
+
 
 const Profile: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -77,6 +81,13 @@ const Profile: React.FC = () => {
                   <div className='col-md-2'></div>
                   <div className='col-md-10'>
                     <div className='form-group row'>
+                      <label className='col-md-2 col-form-label fw-bold'>Username</label>
+                      <div className='col-md-10'>
+                        <p className='card-text'>{user.username}</p>
+                      </div>
+                    </div>
+                    <hr />
+                    <div className='form-group row'>
                       <label className='col-md-2 col-form-label fw-bold'>First Name</label>
                       <div className='col-md-10'>
                         <p className='card-text'>{user.firstName}</p>
@@ -117,6 +128,8 @@ const Profile: React.FC = () => {
                   <th scope="col">Call ID</th>
                   <th scope="col">Start Time</th>
                   <th scope="col">End Time</th>
+                  <th scope="col">Receiver Telephone</th>
+                  <th scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -125,6 +138,8 @@ const Profile: React.FC = () => {
                     <td>{call.callId}</td>
                     <td>{call.startTime}</td>
                     <td>{call.endTime}</td>
+                    <td>{Array.isArray(call.receiver) ? call.receiver.map(receiver => (receiver as { telephone: string }).telephone).join(', ') : (call.receiver as { telephone: string }).telephone}</td>
+                    <td>{call.status}</td>
                   </tr>
                 ))}
               </tbody>
