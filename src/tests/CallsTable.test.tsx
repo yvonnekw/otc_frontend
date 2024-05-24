@@ -9,7 +9,7 @@ describe("CallsTable component", () => {
     const testUserId = "yodalpinky1";
     it("should render correctly within a Router", () => {
         // Define testUserId
-      
+
 
         render(
             <Router>

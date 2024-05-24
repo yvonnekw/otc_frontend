@@ -17,10 +17,20 @@ export const makePayment = async (paymentBody: any) => {
 };
 
 
-export const getPayments = () =>
-  api.get(REST_API_BASE_URL + "/payments/get-all-payents", {
+export const getPayments = async () => {
+
+  try {
+    const response = await api.get(`${REST_API_BASE_URL}/payments/get-all-payments`, {
     headers: getLoginHeader(),
   });
+
+    return response.data;
+    
+  } catch (error) {
+    throw new Error(`Error fetching all payment: ${error.message}`);
+  }
+
+};
 
 
 

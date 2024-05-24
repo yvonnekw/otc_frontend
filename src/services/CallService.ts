@@ -10,13 +10,10 @@ interface Call {
   totalTime: number;
   costPerMinute: number;
   discountForCalls: number;
-  signUpDiscount: number;
   vat: number;
   netCost: number;
   grossCost: number;
-  totalCost: number;
 }
-
 
 export async function getCallsByUsername(username: string): Promise<any> {
   try {
@@ -35,7 +32,7 @@ export async function getCallsByUsername(username: string): Promise<any> {
 export async function getPaidCallsByUsername(username: string): Promise<any> {
   try {
     const response = await api.get(
-      REST_API_BASE_URL + `/calls/paid?username=${username}`,
+      REST_API_BASE_URL + `/calls/user/${username}/calls?status=Paid`,
       {
         headers: basicHeader,
       }
@@ -46,12 +43,10 @@ export async function getPaidCallsByUsername(username: string): Promise<any> {
   }
 }
 
-//update this
-//create the postman test first
-export async function getUnpaidCallsByUsername(username: string): Promise<any> {
+export async function getPendingInvoicedCallsByUsername(username: string): Promise<any> {
   try {
     const response = await api.get(
-      REST_API_BASE_URL + `/calls/unpaid?username=${username}`,
+      REST_API_BASE_URL + `/calls/user/${username}/calls?status=Pending Invoice`,
       {
         headers: basicHeader,
       }
@@ -62,6 +57,33 @@ export async function getUnpaidCallsByUsername(username: string): Promise<any> {
   }
 }
 
+export async function getInvoicedCallsByUsername(username: string): Promise<any> {
+  try {
+    const response = await api.get(
+      REST_API_BASE_URL + `/calls/user/${username}/calls?status=Invoiced`,
+      {
+        headers: basicHeader,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getCallsByUsernameAndStatus(username: string, status: string): Promise<any> {
+  try {
+    const response = await api.get(
+      `${REST_API_BASE_URL}/calls/user/${username}/calls?status=${status}`,
+      {
+        headers: basicHeader,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
 
 export const enterCall = async (call: any): Promise<any> => {
   try {
@@ -111,53 +133,14 @@ export const checkPhoneNumberExists = async (
   }
 };
 
-export const listCalls = (): Promise<AxiosResponse<Call[]>> => api.get(REST_API_BASE_URL + '/calls', {
-  headers: basicHeader
-});
-
-
-/*
-export async function getCallsByUsername  (username) {
-   const response = await axios.get(
-     REST_API_BASE_URL + `/calls?username=${username}`,
-     {
-       headers: basicHeader,
-     }
-   );
-      return response.data;
-}
-
-
-export const makeCall = (call) => axios.post(REST_API_BASE_URL + "/calls/make/call", call, {
-        headers: headers
-});
-
-// export const getCallReceiversForUser = (username) => axios.get
-   // try {
-  export const getCallReceiversForUser = (username) =>
-    axios.get(
-      `${REST_API_BASE_URL}/callreceiver/phone-numbers?username=${username}`,
-      {
-        headers: headers,
-      }
-    );
-     // return response.data;
-   // } catch (error) {
-      //throw error; // You might want to handle errors more gracefully in your actual application
-  //  }
- // },
-
-  // ... other functions ...
-//};
-
-export const checkPhoneNumberExists = (username, phoneNumber) =>
-  axios.get(
-    `${REST_API_BASE_URL}/callreceiver/phone-numbers?username=${username}&telephone=${phoneNumber}`,
-    {
-      headers: headers,
-    }
-  );
-*/
-
-  
-
+export const listCalls = async (): Promise<any> => {
+  try {
+    const response = await axios.get<Call[]>(`${REST_API_BASE_URL}/calls/get-all-calls`, {
+    headers: basicHeader,
+    });
+    
+    return response
+  } catch (error) {
+    throw error;
+  }
+};

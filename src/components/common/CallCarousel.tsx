@@ -10,14 +10,3 @@ function CallCarousel(): JSX.Element {
 }
 
 export default CallCarousel;
-/*
-function CallCarousel() {
-  return (
-    <div>
-      CallCarousl page
-    </div>
-  )
-}
-
-export default CallCarousel
-*/

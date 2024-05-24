@@ -1,7 +1,5 @@
-//import './App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-//import {, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Home from './components/home/Home';
 import Register from './components/auth/Register';
@@ -27,7 +25,8 @@ import NotFound from './components/notFound/NotFound';
 
 const App: React.FC = () => {
 
-//export function App() {
+  const userId = localStorage.getItem("userId") ?? '';
+
   return (
     <AuthProvider>
       <main>
@@ -48,6 +47,13 @@ const App: React.FC = () => {
                 <PaymentList />
               </RequireAuth>
             } />
+          <Route
+            path="/get-all-users"
+            element={
+              <RequireAuth>
+                <UserList />
+              </RequireAuth>
+            } />
           <Route path="/get-all-calls" element={
             <RequireAuth>
               <ListAllCalls />
@@ -56,9 +62,17 @@ const App: React.FC = () => {
             <RequireAuth>
               <MakeCall />
             </RequireAuth>} />
-          <Route path="/user-calls" element={
+          <Route path="/user-calls/pending" element={
             <RequireAuth>
-              <CallsTable userId={''} />
+              <CallsTable userId={userId} status="Pending Invoice" />
+            </RequireAuth>} />
+          <Route path="/user-calls/invoiced" element={
+            <RequireAuth>
+              <CallsTable userId={userId} status="Invoiced" />
+            </RequireAuth>} />
+          <Route path="/user-calls/paid" element={
+            <RequireAuth>
+              <CallsTable userId={userId} status="Paid" />
             </RequireAuth>} />
           <Route path="/profile" element={
             <RequireAuth>
@@ -91,71 +105,3 @@ export default App
 
 
 
-/*
-
-const App: React.FC = () => {
-  return (
-    <AuthProvider>
-      <main>
-        <Router>
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={
-              <RequireAuth>
-                <Dashboard />
-              </RequireAuth>} />
-            <Route
-              path="/get-all-payments"
-              element={
-                <RequireAuth>
-                  <PaymentList />
-                </RequireAuth>
-              } />
-            <Route path="/get-all-calls" element={
-              <RequireAuth>
-                <ListAllCalls />
-              </RequireAuth>} />
-            <Route path="/make-call" element={
-              <RequireAuth>
-                <MakeCall />
-              </RequireAuth>} />
-            <Route path="/user-calls" element={
-              <RequireAuth>
-                <CallsTable userId={''} />
-              </RequireAuth>} />
-            <Route path="/profile" element={
-              <RequireAuth>
-                <Profile />
-              </RequireAuth>} />
-            <Route path="/get-all-users" element={
-              <RequireAuth>
-                <UserList />
-              </RequireAuth>} />
-            <Route path="/admin" element={
-              <RequireAuth>
-                <AdminUI />
-              </RequireAuth>} />
-            <Route path="/payment" element={
-              <RequireAuth>
-                <Payment />
-              </RequireAuth>} />
-            <Route path="/get-all-invoices" element={
-              <RequireAuth>
-                <Invoice />
-              </RequireAuth>} />
-            <Route path="/logout" element={<Logout />} />
-          </Routes>
-        </Router>
-      </main>
-    </AuthProvider>
-
-
-
-  );
-};
-
-export default App;
-*/
