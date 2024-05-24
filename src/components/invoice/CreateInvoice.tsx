@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import moment from 'moment'; // Make sure to import moment if you haven't already
-import { invoice } from '../../services/InvoiceService'; // Import your API function for creating invoices
+import moment from 'moment'; 
+import { invoice } from '../../services/InvoiceService'; 
 
 const createInvoice = async (totalBill: number, calls: any[]) => {
     const invoiceBody = {

@@ -7,7 +7,7 @@
      // "target": "es5",
      // "lib": ["es6", "dom"],
      "target": "es2017", // or later
-    "lib": ["es2017", "dom"], // Add "es2017" to the list
+      "lib": ["es2017", "dom"], // Add "es2017" to the list
       "sourceMap": true,
       "allowJs": true,
       "jsx": "react",

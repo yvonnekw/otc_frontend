@@ -3,9 +3,14 @@ import { getPayments } from '../../services/PaymentService';
 import { AuthContext } from '../auth/AuthProvider';
 
 interface Payment {
-    id: number;
+    paymentId: number;
     amount: number;
-    date: string;
+    paymentDate: string;
+    cardNumber: string;
+    invoice: {
+        invoiceId: string;
+    };
+    status: string
 }
 
 const PaymentList: React.FC = () => {
@@ -22,11 +27,11 @@ const PaymentList: React.FC = () => {
     useEffect(() => {
         const fetchPayments = async () => {
             try {
-                const response = await getPayments(); // Call your API function to fetch payments
-                setPayments(response.data);
+                const response = await getPayments(); 
+                setPayments(response);
                 setLoading(false);
             } catch (error) {
-                setError('Error fetching payments. Please try again.'); // Handle errors
+                setError('Error fetching payments. Please try again.'); 
                 setLoading(false);
             }
         };
@@ -35,30 +40,36 @@ const PaymentList: React.FC = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>; // Display loading indicator while fetching payments
+        return <div>Loading...</div>; 
     }
 
     if (error) {
-        return <div>{error}</div>; // Display error message if fetching payments fails
+        return <div>{error}</div>; 
     }
 
     return (
         <div>
             <h2>Payment List</h2>
-            <table>
+            <table className="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Paymemt ID</th>
+                        <th>Invoiced ID</th>
                         <th>Amount</th>
-                        <th>Date</th>
+                        <th>Payment Date</th>
+                        <th>status</th>
+                        <th>Payment Details</th>
                     </tr>
                 </thead>
                 <tbody>
                     {payments.map((payment) => (
-                        <tr key={payment.id}>
-                            <td>{payment.id}</td>
+                        <tr key={payment.paymentId}>
+                            <td>{payment.paymentId}</td>
+                            <td>{payment.invoice ? payment.invoice.invoiceId : 'N/A'}</td>
                             <td>{payment.amount}</td>
-                            <td>{payment.date}</td>
+                            <td>{payment.paymentDate}</td>
+                            <td>{payment.status}</td>
+                            <td>{payment.cardNumber.slice(-4)}</td>
                         </tr>
                     ))}
                 </tbody>

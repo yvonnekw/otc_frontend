@@ -58,8 +58,13 @@ const NavBar = () => {
                 className={`dropdown-menu ${showAccount ? "show" : ""}`}
                 id="navbarDropdown" aria-labelledby="navbarDropdown">
                 <li>
-                  <Link className='dropdown-item' to={'/user-calls'} >
-                    Call history
+                  <Link className='dropdown-item' to="/user-calls/Paid" >
+                    Paid Calls
+                  </Link>
+                </li>
+                <li>
+                  <Link className='dropdown-item' to="/user-calls/Invoiced" >
+                    Invoiced Calls
                   </Link>
                 </li>
                 <li>

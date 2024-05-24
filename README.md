@@ -47,3 +47,12 @@ The following commnan will execute all the tests
 To run for example the test for NavBarTest.ts, filter it out this way and execute the following command -
 `npm run test NavBar`
 https://github.com/yvonnekw/otc_backend
+
+
+### Tasks and bugs to fix
+
+1. New Registered User needs to be able to create a call
+2. New Registered User needs to be able to view their profile
+3. add login profile in the Nav menu and move you are login as message
+3. Add success message for successfully registering
+4. Add Successs message for successfully logging in.

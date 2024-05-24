@@ -1,10 +1,8 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-import ListCallsComponent from '../calls/ListAllCalls'
+import ListAllCalls from '../calls/ListAllCalls'
 import { AuthContext } from '../auth/AuthProvider';
-
-
 
 const AdminUI: React.FC = () => {
   const { role } = useContext(AuthContext);
@@ -35,7 +33,7 @@ const AdminUI: React.FC = () => {
         Manage Users
       </Link>
       <div>
-        <ListCallsComponent />
+        <ListAllCalls />
       </div>
     </>
   );

@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { registerUser, registerUser2 } from '../../services/UserService';
+import React, { useState } from 'react';
+import { Authority, registerUser, registerUser2, User } from '../../services/UserService';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const Register: React.FC = () => {
@@ -12,7 +12,6 @@ const Register: React.FC = () => {
     const [emailAddress, setEmailAddress] = useState('');
     const [telephone, setTelephone] = useState('');
     const [password, setPassword] = useState('');
-    const [authorities, setAuthorities] = useState<string[]>([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
@@ -53,13 +52,12 @@ const Register: React.FC = () => {
             setTimeout(() => {
                 setErrorMessage("");
                 setSuccessMessage("");
-            }, 5000); // Adjust timeout value as needed
+            }, 5000);
         }
     };
 
     const validateForm = () => {
         let valid = true;
-        // Spread the errors object to copy it
         const errorsCopy = { ...errors };
 
         if (firstName.trim()) {
@@ -69,44 +67,44 @@ const Register: React.FC = () => {
             valid = false;
         }
 
-
         if (!emailAddress.trim()) {
-            errors.emailAddress = 'Email address required';
+            errorsCopy.emailAddress = 'Email address required';
             valid = false;
         }
 
         if (!telephone.trim()) {
-            errors.telephone = 'Telephone number is required';
+            errorsCopy.telephone = 'Telephone number is required';
             valid = false;
         }
 
         if (!password.trim()) {
-            errors.password = 'Password is required';
+            errorsCopy.password = 'Password is required';
             valid = false;
         }
 
-        /*
-// Set errors using the functional update form of setState
-    setErrors(prevErrors => ({
-        ...prevErrors,
-        ...errorsCopy
-    }));
-        */
-
-        setErrors(errors);
+        setErrors(errorsCopy);
         return valid;
     };
 
-    function saveUser2(e: React.FormEvent<HTMLFormElement>) {
+    const saveUser2 = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (validateForm()) {
             try {
-                setAuthorities(["USER"]);
-                const user = { firstName, lastName, emailAddress, telephone, password, authorities };
-                const response = registerUser2(user);
+                const authorities: Authority[] = [{ authority: "USER" }];
+                const user: User = {
+                    userId: 0,
+                    username: emailAddress, 
+                    firstName,
+                    lastName,
+                    emailAddress,
+                    telephone,
+                    password,
+                    authorities
+                };
+                const response = await registerUser2(user);
 
-                if (response !== undefined) {
+                if (response) {
                     setSuccessMessage("A new user is registered");
                     setErrorMessage('');
                     navigate('/login');
@@ -120,7 +118,7 @@ const Register: React.FC = () => {
             setTimeout(() => {
                 setErrorMessage('');
                 setSuccessMessage('');
-            }, 5000); // Adjust timeout value as needed
+            }, 5000);
         }
     }
 
@@ -129,7 +127,7 @@ const Register: React.FC = () => {
             {message && <p className='text-warning px-5'>{message}</p>}
             {currentUser && <h6 className='text-success text-center'>You are logged in as: {currentUser}
                 <h6>Not you? <Link to="/login">login here</Link></h6></h6>}
-     
+
             {errorMessage && <p className='alert alert-danger'>{errorMessage}</p>}
             {successMessage && <p className='alert alert-success'>{successMessage}</p>}
 
@@ -170,7 +168,6 @@ const Register: React.FC = () => {
                                     name='email'
                                     value={emailAddress}
                                     className={`form-control ${errors.emailAddress ? 'is-invalid' : ''}`}
-                           
                                     onChange={(e) => setEmailAddress(e.target.value)}
                                 />
                                 {errors.emailAddress && <div className='invalid-feedback'>{errors.emailAddress}</div>}
@@ -201,7 +198,7 @@ const Register: React.FC = () => {
                             </div>
                             <div>
                                 <button type='submit' className='btn-otc btn-otc:hover'>Submit</button>
-                                <span style={{ marginLeft: "10px" }}>Already registered? <a href="#" data-name="login here">login here</a></span>
+                                <span style={{ marginLeft: "10px" }}>Already registered? <Link to="/login">login here</Link></span>
                             </div>
                         </form>
                     </div>
