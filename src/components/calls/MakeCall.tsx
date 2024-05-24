@@ -8,7 +8,7 @@ import { AuthContext } from "../auth/AuthProvider";
 import CallsTable from "./CallsTable";
 
 const MakeCall: React.FC = () => {
-    const currentUser = localStorage.getItem("userId") || ''; 
+    const currentUser = localStorage.getItem("userId") || '';
     const [startTime, setStartTime] = useState<string>("");
     const [endTime, setEndTime] = useState<string>("");
     const [discount, setDiscount] = useState<number>(0);
@@ -256,66 +256,19 @@ const MakeCall: React.FC = () => {
                 </div>
             </div>
             <CallsTable userId={userId} status="Pending Invoice" />
-            <div className="container">
-                <br /> <br />
-                <div className="row">
-                    <div className="card col-md-6 offset-md-3 offset-md-3">
-                        <h2 className="text-center">Current Calls</h2>
-                        <div className="card-body">
-                            {calls && calls.length > 0 ? (
-                                <table className="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Call ID</th>
-                                            <th>Call Date</th>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-                                            <th>Duration</th>
-                                            <th>Cost Per Minute</th>
-                                            <th>Discount</th>
-                                            <th>Call Gross cost</th>
-                                            <th>VAT</th>
-                                            <th>Net Cost</th>
-                                            <th>Call Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {calls.map((call) => (
-                                            <tr key={call.callId}>
-                                                <td>{call.callId}</td>
-                                                <td>{call.callDate}</td>
-                                                <td>{call.startTime}</td>
-                                                <td>{call.endTime}</td>
-                                                <td>{call.duration}</td>
-                                                <td>{call.costPerMinute}</td>
-                                                <td>{call.discountForCalls}</td>
-                                                <td>{call.grossCost}</td>
-                                                <td>{call.vat}</td>
-                                                <td>{call.netCost}</td>
-                                                <td>{call.status}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            ) : (
-                                <p>No calls to display.</p>
-                            )}
-                            <div>Total Bill Amount: £{totalBill}</div>
-                            <button className="btn btn-success" onClick={calculateBill}>
-                                Calculate Bill
-                            </button>
-                            <div>
-                                <br />
-                            </div>
-                            <Link to="/payment" className="mb-2 md-mb-0">
-                                Proceed To Payment
-                            </Link>
-                        </div>
-                    </div>
-                </div>
+
+            <div>Total Bill Amount: £{totalBill}</div>
+            <button className="btn btn-success" onClick={calculateBill}>
+                Calculate Bill
+            </button>
+            <div>
+                <br />
             </div>
-            <br />
+            <Link to="/payment" className="mb-2 md-mb-0">
+                Proceed To Payment
+            </Link>
         </div>
+
     );
 };
 
