@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
-import { getTelephoneNumbers } from '../../services/CallReceiverService'
+import React, { useEffect, useState } from 'react';
+import { getTelephoneNumbers } from '../../services/CallReceiverService';
 import NewTelephoneNumberForm from '../calls/NewTelephoneNumberForm';
 
 interface CallReceiverSelectorProps {
@@ -8,26 +7,27 @@ interface CallReceiverSelectorProps {
     newCall: {
         telephone: string;
     };
+    user: string;
 }
 
-const CallReceiverSelector: React.FC<CallReceiverSelectorProps> = ({ handleTelephoneNumberInputChange, newCall }) => {
+const CallReceiverSelector: React.FC<CallReceiverSelectorProps> = ({ handleTelephoneNumberInputChange, newCall, user }) => {
     const [telephoneNumbers, setTelephoneNumbers] = useState<string[]>([]);
     const [showNewTelephoneNumberForm, setShowNewTelephoneNumberForm] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await getTelephoneNumbers('yodalpinky1'); 
+                const response = await getTelephoneNumbers(user); 
                 setTelephoneNumbers(response);
             } catch (error) {
                 console.error('Error fetching phone numbers:', error);
             }
         };
         fetchData();
-    }, [showNewTelephoneNumberForm]);
+    }, [showNewTelephoneNumberForm, user]); 
 
-    const handleAddNewTelephoneNumber = async () => {
-        setShowNewTelephoneNumberForm(false); 
+    const handleAddNewTelephoneNumber = () => {
+        setShowNewTelephoneNumberForm(false);
     };
 
     return (
@@ -36,7 +36,8 @@ const CallReceiverSelector: React.FC<CallReceiverSelectorProps> = ({ handleTelep
                 id='telephone'
                 name='telephone'
                 value={newCall.telephone}
-                onChange={handleTelephoneNumberInputChange}>
+                onChange={handleTelephoneNumberInputChange}
+            >
                 <option value=''>Select a call receiver phone number</option>
                 {telephoneNumbers.map((telephone, index) => (
                     <option key={index} value={telephone}>
@@ -45,9 +46,11 @@ const CallReceiverSelector: React.FC<CallReceiverSelectorProps> = ({ handleTelep
                 ))}
             </select>
             {showNewTelephoneNumberForm ? (
-                <NewTelephoneNumberForm onSuccess={handleAddNewTelephoneNumber} />
+                <NewTelephoneNumberForm user={user} onSuccess={handleAddNewTelephoneNumber} /> // Pass user to the form
             ) : (
-                <button className='btn btn-success' onClick={() => setShowNewTelephoneNumberForm(true)}>Add New Telephone Number</button>
+                <button className='btn btn-success' onClick={() => setShowNewTelephoneNumberForm(true)}>
+                    Add New Telephone Number
+                </button>
             )}
         </div>
     );

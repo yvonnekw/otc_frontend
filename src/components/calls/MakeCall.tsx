@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import moment from "moment"; 
-import { checkPhoneNumberExists, enterCall, getCallsByUsernameAndStatus } from "../../services/CallService"; 
+import moment from "moment";
+import { checkPhoneNumberExists, enterCall, getCallsByUsernameAndStatus } from "../../services/CallService";
 import createInvoice from "../invoice/CreateInvoice";
 import CallReceiverSelector from "../common/CallReceiverSelector";
 import { AuthContext } from "../auth/AuthProvider";
-import CallCard from "./CallCard";
 import CallsTable from "./CallsTable";
 
 const MakeCall: React.FC = () => {
-    const currentUser = localStorage.getItem("userId");
+    const currentUser = localStorage.getItem("userId") || ''; 
     const [startTime, setStartTime] = useState<string>("");
     const [endTime, setEndTime] = useState<string>("");
     const [discount, setDiscount] = useState<number>(0);
@@ -23,7 +22,6 @@ const MakeCall: React.FC = () => {
     const [selectedCallIds, setSelectedCallIds] = useState<string[]>([]);
     const [invoiceId, setInvoiceId] = useState<string>("");
     const [callDate, setCallDate] = useState(moment().format("DD/MM/YYYY"));
-
 
     const userId = localStorage.getItem("userId") ?? '';
     const token = localStorage.getItem("token");
@@ -45,15 +43,12 @@ const MakeCall: React.FC = () => {
     });
 
     const calculateBill = () => {
-        console.log("totalbill from billAmount netcost : ", netCost)
         let billAmount = 0;
         calls.forEach((call) => {
             billAmount += parseFloat(call.netCost);
         });
 
         setTotalBill(parseFloat(billAmount.toFixed(2)));
-        console.log("totalbill from billAmount: ",totalBill)
-
 
         createInvoice(totalBill, calls).then((invoiceId) => {
             setInvoiceId(invoiceId);
@@ -73,8 +68,6 @@ const MakeCall: React.FC = () => {
     const selectedCallIdsMapped = selectedCallIds.map((callId) => ({
         callId: callId,
     }));
-
-    console.log("selected ids new here : ", selectedCallIdsMapped);
 
     const navigate = useNavigate();
 
@@ -101,23 +94,19 @@ const MakeCall: React.FC = () => {
         setDiscount(parseFloat(event.target.value));
     };
 
-
     const handleCallDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCallDate(e.target.value);
     };
-  
+
     useEffect(() => {
         const fetchCalls = async () => {
             try {
+                // const unpaidCallsResponse = await getCallsByUsernameAndStatus(currentUser ?? '');
 
-                
+                // const unpaidCallsResponse = await getPendingInvoicedCallsByUsername(currentUser ?? '');
 
-               // const unpaidCallsResponse = await getCallsByUsernameAndStatus(currentUser ?? '');
+                // setCalls(unpaidCallsResponse);
 
-                //const unpaidCallsResponse = await getPendingInvoicedCallsByUsername(currentUser ?? '');
-
-              //  setCalls(unpaidCallsResponse);
-        
             } catch (error) {
                 console.error("Error fetching calls: ", error.message);
                 setErrorMessage(error.message);
@@ -132,7 +121,6 @@ const MakeCall: React.FC = () => {
 
         if (isLoggedIn()) {
             if (validateForm()) {
-          
                 const call = {
                     startTime: startTime,
                     endTime: endTime,
@@ -143,10 +131,8 @@ const MakeCall: React.FC = () => {
                 };
 
                 try {
-                    const isValid = await checkPhoneNumberExists(currentUser ?? '', selectedTelephoneNumber);
-                    console.log("phone number and user " + isValid);
+                    const isValid = await checkPhoneNumberExists(currentUser, selectedTelephoneNumber);
                     const response = await enterCall(call);
-                    console.log(response.data);
                     if (response && response.data && response.data.callId) {
                         setSelectedCallIds([...selectedCallIds, response.data.callId]);
                         setSuccessMessage("A new call has been recorded in the database.");
@@ -183,7 +169,7 @@ const MakeCall: React.FC = () => {
             errorsCopy.startTime = "";
         } else {
             errorsCopy.startTime = "Start time required"
-            
+
             valid = false;
         }
 
@@ -204,7 +190,7 @@ const MakeCall: React.FC = () => {
             <div className="row">
                 <div className="card col-md-6 offset-md-3 offset-md-3">
                     <h2 className="text-center">New call</h2>
-                
+
                     <div className="form-group mb-2">
                         <label className="form-label">Call Date</label>
                         <input
@@ -222,8 +208,8 @@ const MakeCall: React.FC = () => {
                                 <div>
                                     <CallReceiverSelector
                                         handleTelephoneNumberInputChange={handleTelephoneNumberInputChange}
-                                       // handleTelephoneNumberInputChange={handleTelephoneNumberInputChange}
                                         newCall={newCall}
+                                        user={currentUser}
                                     />
                                 </div>
                             </div>
@@ -334,4 +320,3 @@ const MakeCall: React.FC = () => {
 };
 
 export default MakeCall;
-
