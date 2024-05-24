@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 import ListAllCalls from '../calls/ListAllCalls'
 import { AuthContext } from '../auth/AuthProvider';
 
-
-
 const AdminUI: React.FC = () => {
   const { role } = useContext(AuthContext);
 

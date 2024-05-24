@@ -13,7 +13,6 @@ interface Call {
   vat: number;
   netCost: number;
   grossCost: number;
-  totalCost: number;
   callDate: string;
   status: string;
 }
