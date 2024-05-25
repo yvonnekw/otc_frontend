@@ -51,7 +51,7 @@ https://github.com/yvonnekw/otc_backend
 
 ### Tasks and bugs to fix
 
-1. New Registered User needs to be able to create a call
+1. New Registered User needs to be able to create a call: task_1
 2. New Registered User needs to be able to view their profile
 3. add login profile in the Nav menu and move you are login as message
 3. Add success message for successfully registering
