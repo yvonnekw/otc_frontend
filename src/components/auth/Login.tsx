@@ -1,14 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { loginUser2, loginUser, getUsername2 } from '../../services/UserService';
-import jwt_decode from "jwt-decode";
-import AuthProvider, { AuthContext } from './AuthProvider';
+import {  loginUser } from '../../services/UserService';
+import  { AuthContext } from './AuthProvider';
 
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
+  const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
   const { handleLogin, isLoggedIn } = useContext(AuthContext);
@@ -34,9 +34,11 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = { username, password };
-    const response = await loginUser2(user);
+    const response = await loginUser(user);
+    console.log("response token in login ", response.data.token)
     if (response) {
-      const token = response.token;
+      setMessage(response.message);
+      const token = response.data.token;
       handleLogin(token);
       navigate("/dashboard");
     } else {
@@ -50,6 +52,9 @@ const Login: React.FC = () => {
   return (
     <section className='container col-6 mt-5 mb-5'>
       {errMsg && <p className='alert alert-danger'>{errMsg}</p>}
+      {message && (
+        <p className="alert alert-success">{message}</p>
+      )}
       <div className='row'>
         <div className='card col-md-6 offset-md-3 offset-md-3'>
           <h1 className='text-center'>Login here</h1>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Authority, registerUser, registerUser2, User } from '../../services/UserService';
+import { Authority, registerUser, User } from '../../services/UserService';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const Register: React.FC = () => {
@@ -27,6 +27,7 @@ const Register: React.FC = () => {
         emailAddress: '',
         telephone: '',
         password: ''
+       
     });
 
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Register: React.FC = () => {
         e.preventDefault();
 
         if (validateForm()) {
-            const user = { firstName, lastName, emailAddress, telephone };
+            const user = { firstName, lastName, emailAddress, telephone, password };
             try {
                 const response = await registerUser(user);
                 if (response) {
@@ -93,8 +94,6 @@ const Register: React.FC = () => {
             try {
                 const authorities: Authority[] = [{ authority: "USER" }];
                 const user: User = {
-                    userId: 0,
-                    username: emailAddress, 
                     firstName,
                     lastName,
                     emailAddress,
@@ -102,7 +101,7 @@ const Register: React.FC = () => {
                     password,
                     authorities
                 };
-                const response = await registerUser2(user);
+                const response = await registerUser(user);
 
                 if (response) {
                     setSuccessMessage("A new user is registered");
@@ -125,6 +124,7 @@ const Register: React.FC = () => {
     return (
         <section className='container col-6 mt-5 mb-5'>
             {message && <p className='text-warning px-5'>{message}</p>}
+            {successMessage && <p className='text-warning px-5'>{successMessage}</p>}
             {currentUser && <h6 className='text-success text-center'>You are logged in as: {currentUser}
                 <h6>Not you? <Link to="/login">login here</Link></h6></h6>}
 
