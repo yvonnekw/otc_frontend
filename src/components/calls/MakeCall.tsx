@@ -98,24 +98,6 @@ const MakeCall: React.FC = () => {
         setCallDate(e.target.value);
     };
 
-    useEffect(() => {
-        const fetchCalls = async () => {
-            try {
-                // const unpaidCallsResponse = await getCallsByUsernameAndStatus(currentUser ?? '');
-
-                // const unpaidCallsResponse = await getPendingInvoicedCallsByUsername(currentUser ?? '');
-
-                // setCalls(unpaidCallsResponse);
-
-            } catch (error) {
-                console.error("Error fetching calls: ", error.message);
-                setErrorMessage(error.message);
-            }
-        };
-
-        fetchCalls();
-    }, [currentUser]);
-
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
