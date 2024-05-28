@@ -2,24 +2,20 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { checkPhoneNumberExists, enterCall, getCallsByUsernameAndStatus } from "../../services/CallService";
-import createInvoice from "../invoice/CreateInvoice";
 import CallReceiverSelector from "../common/CallReceiverSelector";
 import { AuthContext } from "../auth/AuthProvider";
 import CallsTable from "./CallsTable";
+import { invoice } from "../../services/InvoiceService";
 
 const MakeCall: React.FC = () => {
     const currentUser = localStorage.getItem("userId") || '';
     const [startTime, setStartTime] = useState<string>("");
     const [endTime, setEndTime] = useState<string>("");
     const [discount, setDiscount] = useState<number>(0);
-    const [totalCost, setTotalCost] = useState<number>(0);
-    const [netCost, setNetCost] = useState<number>(0);
     const [selectedTelephoneNumber, setSelectedTelephoneNumber] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [successMessage, setSuccessMessage] = useState<string>("");
-    const [calls, setCalls] = useState<any[]>([]);
-    const [totalBill, setTotalBill] = useState<number>(0);
-    const [selectedCallIds, setSelectedCallIds] = useState<string[]>([]);
+    const [selectedCallIds, setSelectedCallIds] = useState<number[]>([]);
     const [invoiceId, setInvoiceId] = useState<string>("");
     const [callDate, setCallDate] = useState(moment().format("DD/MM/YYYY"));
 
@@ -41,39 +37,52 @@ const MakeCall: React.FC = () => {
         discount: "",
         callDate: "",
     });
+    
 
-    const calculateBill = () => {
-        let billAmount = 0;
-        calls.forEach((call) => {
-            billAmount += parseFloat(call.netCost);
-        });
+    useEffect(() => {
+        const fetchPendingCalls = async () => {
+            try {
+                const pendingCalls = await getCallsByUsernameAndStatus(currentUser, "Pending Invoice");
+                setSelectedCallIds(pendingCalls.map((call: { callId: number }) => call.callId));
+            } catch (error) {
+                console.error("Error fetching pending calls:", error);
+            }
+        };
 
-        setTotalBill(parseFloat(billAmount.toFixed(2)));
+        fetchPendingCalls();
+    }, [currentUser]);
 
-        createInvoice(totalBill, calls).then((invoiceId) => {
-            setInvoiceId(invoiceId);
+    const createInvoice = async (callIds: number[]) => {
+        const invoiceBody = {
+            callIds
+        };
 
-            let totalNetCost = 0;
-            calls.forEach((call) => {
-                if (selectedCallIds.includes(call.callId)) {
-                    totalNetCost += parseFloat(call.netCost);
-                }
-            });
-
-            setNetCost(parseFloat(totalNetCost.toFixed(2)));
-
-        });
+        try {
+            const response = await invoice(invoiceBody);
+            return response.invoiceId;
+        } catch (error) {
+            console.error("Error creating invoice: ", error);
+            throw error;
+        }
     };
 
+    const endCalls = async () => {
+        if (selectedCallIds.length === 0) {
+            console.error("No call IDs selected for invoice creation.");
+            return;
+        }
+        try {
+            const invoiceId = await createInvoice(selectedCallIds);
+            setInvoiceId(invoiceId);
+        } catch (error) {
+            console.error("Error creating invoice:", error);
+        }
+    };
     const selectedCallIdsMapped = selectedCallIds.map((callId) => ({
         callId: callId,
     }));
 
     const navigate = useNavigate();
-
-    const handleProceedToPayment = () => {
-        navigate(`/payment?userId=${userId}&netCost=${netCost}&invoiceId=${invoiceId}`);
-    };
 
     const handleTelephoneNumberInputChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const name = e.target.name;
@@ -107,7 +116,6 @@ const MakeCall: React.FC = () => {
                     startTime: startTime,
                     endTime: endTime,
                     discountForCalls: discount,
-                    totalCost: totalCost,
                     username: currentUser,
                     telephone: selectedTelephoneNumber,
                 };
@@ -239,9 +247,9 @@ const MakeCall: React.FC = () => {
             </div>
             <CallsTable userId={userId} status="Pending Invoice" />
 
-            <div>Total Bill Amount: £{totalBill}</div>
-            <button className="btn btn-success" onClick={calculateBill}>
-                Calculate Bill
+            <div>When finished, click the button below to end Calls</div>
+            <button className="btn btn-success" onClick={endCalls}>
+                End Calls
             </button>
             <div>
                 <br />
