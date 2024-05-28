@@ -2,8 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { getCallsByUsername } from '../../services/CallService';
 import { getUser } from '../../services/UserService';
 import { useLocation } from 'react-router-dom';
-import  { AuthContext } from './AuthProvider';
-
+import { AuthContext } from './AuthProvider';
 
 interface User {
   username: string;
@@ -32,6 +31,7 @@ const Profile: React.FC = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
+
   const location = useLocation();
   const message = location.state && location.state.message;
 
@@ -41,7 +41,7 @@ const Profile: React.FC = () => {
     const fetchUser = async () => {
       if (isLoggedIn()) {
         try {
-          const userData: User = await getUser(userId!, token!);
+          const userData: User = await getUser(userId!);
           setUser(userData);
           setCurrentUser(localStorage.getItem("userId"));
         } catch (error) {
