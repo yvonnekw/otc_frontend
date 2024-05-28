@@ -8,7 +8,7 @@ interface Call {
   startTime: string;
   endTime: string;
   duration: number;
-  costPerMinute: number;
+  costPerSecond: number;
   discountForCalls: number;
   vat: number;
   netCost: number;
@@ -59,7 +59,7 @@ const CallsTable: React.FC<Props> = ({ userId, status}) => {
                 <th>Start Time</th>
                 <th>End Time</th>
                 <th>Duration</th>
-                <th>Cost Per Minute</th>
+                <th>Cost Per Second</th>
                 <th>Discount</th>
                 <th>Call Gross cost</th>
                 <th>VAT</th>
@@ -75,7 +75,7 @@ const CallsTable: React.FC<Props> = ({ userId, status}) => {
                   <td>{call.startTime}</td>
                   <td>{call.endTime}</td>
                   <td>{call.duration}</td>
-                  <td>{call.costPerMinute}</td>
+                  <td>{call.costPerSecond}</td>
                   <td>{call.discountForCalls}</td>
                   <td>{call.grossCost}</td>
                   <td>{call.vat}</td>
