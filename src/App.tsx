@@ -21,6 +21,7 @@ import MakeCall from './components/calls/MakeCall';
 import UserList from './components/users/UserList';
 import PaymentList from './components/payment/PaymentList';
 import NotFound from './components/notFound/NotFound';
+import NewTelephoneNumberPage from './components/calls/NewTelephoneNumberPage'
 
 
 const App: React.FC = () => {
@@ -89,6 +90,10 @@ const App: React.FC = () => {
           <Route path="/payment" element={
             <RequireAuth>
               <Payment />
+            </RequireAuth>} />
+          <Route path="/add-new-receiver" element={
+            <RequireAuth>
+              <NewTelephoneNumberPage />
             </RequireAuth>} />
           <Route path="/get-all-invoices" element={
             <RequireAuth>

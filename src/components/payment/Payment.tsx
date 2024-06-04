@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { makePayment } from "../../services/PaymentService";
 import { searchInvoiceById } from "../../services/InvoiceService";
+import CallsTable from "../calls/CallsTable";
 
 const Payment: React.FC = () => {
   const navigateTo = useNavigate();
@@ -18,6 +19,8 @@ const Payment: React.FC = () => {
   const [invoiceId, setInvoiceId] = useState<string | null>(null);
   const [netCost, setNetCost] = useState<string>("");
   const [invoiceNotFound, setInvoiceNotFound] = useState<boolean>(false);
+
+  const userId = localStorage.getItem("userId") ?? '';
 
   const handleSearchInvoice = async () => {
     try {
@@ -139,8 +142,11 @@ const Payment: React.FC = () => {
               </form>
               <div className="mb-3">
                 <button className="btn btn-success" onClick={handlePayment}>
-                  Proceed to Payment
+                  Confirm Payment
                 </button>
+              </div>
+              <div>
+                <CallsTable userId={userId} status="Paid" />
               </div>
               {errorMessage && (
                 <p className="alert alert-danger">{errorMessage}</p>

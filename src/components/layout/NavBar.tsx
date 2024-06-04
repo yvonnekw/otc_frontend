@@ -10,6 +10,8 @@ const NavBar = () => {
   const { user, isLoggedIn } = useContext(AuthContext);
   const { role } = useContext(AuthContext);
 
+  const userId = localStorage.getItem("userId") ?? '';
+
   const handleAccountClick = () => {
     setShowAccount(!showAccount);
   };
@@ -53,10 +55,16 @@ const NavBar = () => {
                 onClick={handleAccountClick}>
                 {" "}
                 Account
+                {userId && <h6 className='text-success text-center'>You are logged in as: {userId}</h6>}
               </a>
               <ul
                 className={`dropdown-menu ${showAccount ? "show" : ""}`}
                 id="navbarDropdown" aria-labelledby="navbarDropdown">
+                <li>
+                  <Link className='dropdown-item' to="/payment" >
+                    Pay for calls
+                  </Link>
+                </li>
                 <li>
                   <Link className='dropdown-item' to="/user-calls/Paid" >
                     Paid Calls
@@ -65,6 +73,11 @@ const NavBar = () => {
                 <li>
                   <Link className='dropdown-item' to="/user-calls/Invoiced" >
                     Invoiced Calls
+                  </Link>
+                </li>
+                <li>
+                  <Link className='dropdown-item' to="/add-new-receiver" >
+                    Add A New Call Receiver
                   </Link>
                 </li>
                 <li>
