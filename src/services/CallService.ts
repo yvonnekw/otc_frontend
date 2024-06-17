@@ -85,6 +85,21 @@ export async function getCallsByUsernameAndStatus(username: string, status: stri
   }
 }
 
+//update this 
+export async function updateCallStatus(username: string, status: string): Promise<any> {
+  try {
+    const response = await api.get(
+      `${REST_API_BASE_URL}/calls/user/${username}/calls?status=${status}`,
+      {
+        headers: basicHeader,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const enterCall = async (call: any): Promise<any> => {
   try {
     const response = await axios.post(

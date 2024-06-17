@@ -26,7 +26,7 @@ interface Props {
 
 const CallsTable: React.FC<Props> = ({ userId, status }) => {
   const [calls, setCalls] = useState<Call[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
   const location = useLocation();
   const message = location.state && location.state.message;
@@ -44,8 +44,10 @@ const CallsTable: React.FC<Props> = ({ userId, status }) => {
   useEffect(() => {
     const fetchCalls = async () => {
       try {
+        setLoading(true)
         const response = await getCallsByUsernameAndStatus(userId, status);
-        setCalls(response);
+        const rsp = (await response) as Call[];
+        setCalls(rsp);
       } catch (error) {
         setError(error as Error);
       } finally {
