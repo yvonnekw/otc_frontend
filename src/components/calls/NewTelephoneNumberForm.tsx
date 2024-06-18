@@ -60,7 +60,7 @@ const NewTelephoneNumberForm: React.FC<NewTelephoneNumberFormProps> = ({ onSucce
         value={relationship}
         onChange={handleRelationshipInputChange}
       />
-      <button className='btn btn-success' type='button' onClick={handleAddNewTelephoneNumber}>
+          <button className='btn-otc btn-otc:hover' type='button' onClick={handleAddNewTelephoneNumber}>
         Add
       </button>
         </div>

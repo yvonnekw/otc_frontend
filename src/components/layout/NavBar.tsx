@@ -66,12 +66,12 @@ const NavBar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link className='dropdown-item' to="/user-calls/Paid" >
+                  <Link className='dropdown-item' to="/user-calls/paid" >
                     Paid Calls
                   </Link>
                 </li>
                 <li>
-                  <Link className='dropdown-item' to="/user-calls/Invoiced" >
+                  <Link className='dropdown-item' to="/user-calls/invoiced" >
                     Invoiced Calls
                   </Link>
                 </li>

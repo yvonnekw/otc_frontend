@@ -12,9 +12,9 @@ const Invoice: React.FC<InvoiceProps> = () => {
 
   const { role } = useContext(AuthContext);
 
-  if (role !== "ADMIN") {
-    return <div>You don't have permission to access this page.</div>;
-  }
+  //if (role !== "ADMIN") {
+   // return <div>You don't have permission to access this page.</div>;
+  //}
 
   useEffect(() => {
     const fetchInvoices = async () => {

@@ -18,6 +18,7 @@ const MakeCall: React.FC = () => {
     const [selectedCallIds, setSelectedCallIds] = useState<number[]>([]);
     const [invoiceId, setInvoiceId] = useState<string>("");
     const [callDate, setCallDate] = useState(moment().format("DD/MM/YYYY"));
+    const [loading, setLoading] = useState<boolean>(false);
 
     const userId = localStorage.getItem("userId") ?? '';
     const token = localStorage.getItem("token");
@@ -42,15 +43,22 @@ const MakeCall: React.FC = () => {
     useEffect(() => {
         const fetchPendingCalls = async () => {
             try {
+                //setLoading(true)
                 const pendingCalls = await getCallsByUsernameAndStatus(currentUser, "Pending Invoice");
                 setSelectedCallIds(pendingCalls.map((call: { callId: number }) => call.callId));
             } catch (error) {
                 console.error("Error fetching pending calls:", error);
+            }finally{
+               // setLoading(false)
             }
         };
 
         fetchPendingCalls();
     }, [currentUser]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     const createInvoice = async (callIds: number[]) => {
         const invoiceBody = {
@@ -238,7 +246,7 @@ const MakeCall: React.FC = () => {
                                     onChange={handleDiscountInputChange}
                                 />
                             </div>
-                            <button type="submit" className="btn btn-success">
+                            <button type="submit" className='btn-otc btn-otc:hover'>
                                 Submit
                             </button>
                         </form>
@@ -248,7 +256,7 @@ const MakeCall: React.FC = () => {
             <CallsTable userId={userId} status="Pending Invoice" />
 
             <div>When finished, click the button below to end Calls</div>
-            <button className="btn btn-success" onClick={endCalls}>
+            <button className='btn-otc btn-otc:hover' onClick={endCalls}>
                 End Calls
             </button>
             <div>

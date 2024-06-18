@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getCallsByUsernameAndStatus } from '../../services/CallService';
 import { useLocation } from 'react-router-dom';
 import { useTable, Column } from 'react-table';
@@ -33,6 +33,8 @@ const CallsTable: React.FC<Props> = ({ userId, status }) => {
 
   const columns = React.useMemo<Column<Call>[]>(() => COLUMNS, []);
 
+  const abortControllerRef = useRef<AbortController | null>(null);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -43,12 +45,23 @@ const CallsTable: React.FC<Props> = ({ userId, status }) => {
 
   useEffect(() => {
     const fetchCalls = async () => {
+      abortControllerRef.current?.abort()
+      abortControllerRef.current = new AbortController();
+      setLoading(true)
       try {
-        setLoading(true)
+    
         const response = await getCallsByUsernameAndStatus(userId, status);
-        const rsp = (await response) as Call[];
-        setCalls(rsp);
+        {
+          signal: abortControllerRef.current?.signal
+        }
+        //const rsp = (await response) as Call[];
+        setCalls(response);
       } catch (error) {
+        if(error.name === "AbortError"){
+            console.log("Aborted")
+            return
+        }
+        
         setError(error as Error);
       } finally {
         setLoading(false);
@@ -85,10 +98,12 @@ const CallsTable: React.FC<Props> = ({ userId, status }) => {
               </tr>
             ))}
           </thead>
+          {loading}
           <tbody {...getTableBodyProps()}>
             {rows.map(row => {
               prepareRow(row);
               return (
+                
                 <tr {...row.getRowProps()}>
                   {row.cells.map(cell => (
                     <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
