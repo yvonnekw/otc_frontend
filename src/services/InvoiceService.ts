@@ -20,7 +20,7 @@ interface UserData {
 
 export async function invoice(invoiceBody: any): Promise<any> {
   try {
-    const response = await api.post(
+    const response = await axios.post(
       `${REST_API_BASE_URL}/invoices/create-invoice`,
       invoiceBody,
       {
@@ -36,7 +36,7 @@ export async function invoice(invoiceBody: any): Promise<any> {
 
 export async function getAllInvoices(): Promise<InvoiceData[]> {
   try {
-    const response = await api.get<InvoiceData[]>(
+    const response = await axios.get<InvoiceData[]>(
       `${REST_API_BASE_URL}/invoices/get-all-invoice`,
       {
         headers: getLoginHeader(),
@@ -50,7 +50,7 @@ export async function getAllInvoices(): Promise<InvoiceData[]> {
 
 export async function searchInvoiceById(invoiceId: string): Promise<InvoiceData> {
   try {
-    const response = await api.get<InvoiceData>(
+    const response = await axios.get<InvoiceData>(
       `${REST_API_BASE_URL}/invoices/${invoiceId}`,
       {
         headers: basicHeader,

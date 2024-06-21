@@ -7,6 +7,17 @@ export interface Authority {
 }
 
 export interface User {
+  userId: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
+  telephone?: string | null;
+  password: string;
+  authorities: Authority[];
+}
+
+export interface registerUser {
   firstName: string;
   lastName: string;
   emailAddress: string;

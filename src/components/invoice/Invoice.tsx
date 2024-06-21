@@ -1,12 +1,65 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Container, Typography, Divider } from '@mui/material';
 import { getAllInvoices, InvoiceData } from '../../services/InvoiceService';
 import { AuthContext } from '../auth/AuthProvider';
+import CallsTable from '../calls/CallsTable';
+
+interface InvoiceProps { }
+
+const Invoice: React.FC<InvoiceProps> = () => {
+  const [invoices, setInvoices] = useState<InvoiceData[]>([]);
+  const userId = localStorage.getItem('userId') ?? '';
+  const { role } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchInvoices = async () => {
+      try {
+        const invoicesData: InvoiceData[] = await getAllInvoices();
+        setInvoices(invoicesData);
+      } catch (error) {
+        console.error('Error fetching invoices:', error);
+      }
+    };
+
+    fetchInvoices();
+  }, []);
+
+  if (role !== 'ADMIN') {
+    return (
+      <Container maxWidth="sm" sx={{ mt: 5 }}>
+        <Typography variant="h5" color="error" align="center">
+          You don't have permission to access this page.
+        </Typography>
+      </Container>
+    );
+  }
+
+  return (
+    <Container maxWidth="lg" sx={{ mt: 5 }}>
+      <Typography variant="h4" gutterBottom>
+        Invoice List
+      </Typography>
+      <Divider sx={{ mb: 2 }} />
+      <CallsTable userId={userId} status="Invoiced" />
+    </Container>
+  );
+};
+
+export default Invoice;
+
+/*
+
+import React, { useState, useEffect, useContext } from 'react';
+import { getAllInvoices, InvoiceData } from '../../services/InvoiceService';
+import { AuthContext } from '../auth/AuthProvider';
+import CallsTable from '../calls/CallsTable';
 
 interface InvoiceProps {
 }
 
 const Invoice: React.FC<InvoiceProps> = () => {
   const [invoices, setInvoices] = useState<InvoiceData[]>([]);
+  const userId = localStorage.getItem("userId") ?? '';
 
   const { role } = useContext(AuthContext);
 
@@ -30,34 +83,15 @@ const Invoice: React.FC<InvoiceProps> = () => {
   return (
     <div>
       <h2>Invoice List</h2>
-      <table className="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Invoice ID</th>
-            <th>Invoice Date</th>
-            <th>Total Amount</th>
-            <th>Status</th>
-            <th>Call IDs for this invoice</th>
-          </tr>
-        </thead>
-        <tbody>
-          {invoices.map((invoice) => (
-            <tr key={invoice.invoiceId}>
-              <td>{invoice.invoiceId}</td>
-              <td>{invoice.invoiceDate}</td>
-              <td>{invoice.totalAmount}</td>
-              <td>{invoice.status}</td>
-              <td>
-                {invoice.calls && invoice.calls.length > 0
-                  ? invoice.calls.map((call) => `Call ID: ${call.callId}, User ID: ${call.user.userId}`).join(', ')
-                  : '-'}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    
+      <div>
+        <CallsTable userId={userId} status="Invoiced" />
+      </div>
     </div>
+   
   );
 };
 
 export default Invoice;
+
+*/

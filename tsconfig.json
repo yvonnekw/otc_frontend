@@ -3,11 +3,9 @@
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
      "outDir": "build/dist",
-      "module": "commonjs",
-     // "target": "es5",
-     // "lib": ["es6", "dom"],
-     "target": "es2017", // or later
-      "lib": ["es2017", "dom"], // Add "es2017" to the list
+      "module": "esnext",
+     "target": "es2017", 
+      "lib": ["es2017", "dom"], 
       "sourceMap": true,
       "allowJs": true,
       "jsx": "react",
