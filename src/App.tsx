@@ -22,6 +22,8 @@ import UserList from './components/users/UserList';
 import PaymentList from './components/payment/PaymentList';
 import NotFound from './components/notFound/NotFound';
 import NewTelephoneNumberPage from './components/calls/NewTelephoneNumberPage'
+import InvoiceTable from './components/invoice/InvoiceTable';
+import PaymentTable from './components/payment/PaymentTable';
 
 
 const App: React.FC = () => {
@@ -69,11 +71,11 @@ const App: React.FC = () => {
             </RequireAuth>} />
           <Route path="/user-calls/invoiced" element={
             <RequireAuth>
-              <CallsTable userId={userId} status="Invoiced" />
+              <InvoiceTable />
             </RequireAuth>} />
           <Route path="/user-calls/paid" element={
             <RequireAuth>
-              <CallsTable userId={userId} status="Paid" />
+              <PaymentTable />
             </RequireAuth>} />
           <Route path="/profile" element={
             <RequireAuth>

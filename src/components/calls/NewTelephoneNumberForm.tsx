@@ -1,5 +1,66 @@
 import React, { useState } from 'react';
 import { addReceiver } from '../../services/CallReceiverService';
+import { TextField, Button, Box } from '@mui/material';
+
+interface NewTelephoneNumberFormProps {
+  onSuccess: () => void;
+  user: string;
+}
+
+const NewTelephoneNumberForm: React.FC<NewTelephoneNumberFormProps> = ({ onSuccess, user }) => {
+  const [newTelephoneNumber, setNewTelephoneNumber] = useState<string>('');
+  const [fullName, setFullName] = useState<string>('');
+  const [relationship, setRelationship] = useState<string>('');
+
+  const handleAddNewTelephoneNumber = async () => {
+    try {
+      await addReceiver(newTelephoneNumber, user, fullName, relationship);
+      onSuccess();
+      setNewTelephoneNumber('');
+      setFullName('');
+      setRelationship('');
+    } catch (error) {
+      console.error('Error adding new telephone number:', error);
+    }
+  };
+
+  return (
+    <Box component="form" noValidate autoComplete="off">
+      <TextField
+        fullWidth
+        label="Enter new call receiver phone number"
+        value={newTelephoneNumber}
+        onChange={(e) => setNewTelephoneNumber(e.target.value)}
+        margin="normal"
+      />
+      <TextField
+        fullWidth
+        label="Enter new call receiver full name"
+        value={fullName}
+        onChange={(e) => setFullName(e.target.value)}
+        margin="normal"
+      />
+      <TextField
+        fullWidth
+        label="Enter your relationship to this new call receiver"
+        value={relationship}
+        onChange={(e) => setRelationship(e.target.value)}
+        margin="normal"
+      />
+      <Button variant="contained" color="primary" onClick={handleAddNewTelephoneNumber} sx={{ mt: 2 }}>
+        Add
+      </Button>
+    </Box>
+  );
+};
+
+export default NewTelephoneNumberForm;
+
+
+/*
+
+import React, { useState } from 'react';
+import { addReceiver } from '../../services/CallReceiverService';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
@@ -71,7 +132,7 @@ const NewTelephoneNumberForm: React.FC<NewTelephoneNumberFormProps> = ({ onSucce
 
 export default NewTelephoneNumberForm;
 
-
+*/
 /*
 import React, { useState } from 'react';
 import { addReceiver } from '../../services/CallReceiverService';

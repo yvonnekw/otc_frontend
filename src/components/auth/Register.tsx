@@ -1,4 +1,191 @@
 import React, { useState } from 'react';
+import { Authority, registerUser } from '../../services/UserService';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { Container, Card, CardContent, Typography, TextField, Button, Alert, Box } from '@mui/material';
+
+const Register: React.FC = () => {
+    const location = useLocation();
+    const message = location.state && location.state.message;
+
+    const currentUser = localStorage.getItem("userId");
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [emailAddress, setEmailAddress] = useState('');
+    const [telephone, setTelephone] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const [errors, setErrors] = useState<{
+        firstName: string;
+        lastName: string;
+        emailAddress: string;
+        telephone: string;
+        password: string;
+    }>({
+        firstName: '',
+        lastName: '',
+        emailAddress: '',
+        telephone: '',
+        password: ''
+    });
+
+    const navigate = useNavigate();
+
+    const saveUser = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (validateForm()) {
+            const authorities: Authority[] = [{ authority: "USER" }];
+            const user: registerUser = {
+                firstName,
+                lastName,
+                emailAddress,
+                telephone,
+                password,
+                authorities
+            };
+            try {
+                const response = await registerUser(user);
+                if (response) {
+                    setSuccessMessage("A new user is registered");
+                    setErrorMessage('');
+                    navigate('/login');
+                } else {
+                    setErrorMessage('Error registering user');
+                }
+            } catch (error) {
+                setSuccessMessage('');
+                setErrorMessage(`Registration error: ${error.message}`);
+            }
+            setTimeout(() => {
+                setErrorMessage('');
+                setSuccessMessage('');
+            }, 5000);
+        }
+    }
+
+    const validateForm = () => {
+        let valid = true;
+        const errorsCopy = { ...errors };
+
+        if (firstName.trim()) {
+            errorsCopy.firstName = '';
+        } else {
+            errorsCopy.firstName = 'First name is required';
+            valid = false;
+        }
+
+        if (lastName.trim()) {
+            errorsCopy.lastName = '';
+        } else {
+            errorsCopy.lastName = 'Last name is required';
+            valid = false;
+        }
+
+        if (!emailAddress.trim()) {
+            errorsCopy.emailAddress = 'Email address is required';
+            valid = false;
+        }
+
+        if (!telephone.trim()) {
+            errorsCopy.telephone = 'Telephone number is required';
+            valid = false;
+        }
+
+        if (!password.trim()) {
+            errorsCopy.password = 'Password is required';
+            valid = false;
+        }
+
+        setErrors(errorsCopy);
+        return valid;
+    };
+
+    return (
+        <Container maxWidth="sm" sx={{ mt: 5, mb: 5 }}>
+            {message && <Alert severity="info">{message}</Alert>}
+            {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+            {successMessage && <Alert severity="success">{successMessage}</Alert>}
+            {currentUser && (
+                <Typography variant="h6" color="textSecondary" align="center">
+                    You are logged in as: {currentUser}
+                    <Typography variant="subtitle1">
+                        Not you? <Link to="/login">login here</Link>
+                    </Typography>
+                </Typography>
+            )}
+            <Card>
+                <CardContent>
+                    <Typography variant="h4" align="center" gutterBottom>
+                        Register here
+                    </Typography>
+                    <Box component="form" onSubmit={saveUser} noValidate>
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="First Name"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            error={Boolean(errors.firstName)}
+                            helperText={errors.firstName}
+                        />
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="Last Name"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            error={Boolean(errors.lastName)}
+                            helperText={errors.lastName}
+                        />
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="Email Address"
+                            value={emailAddress}
+                            onChange={(e) => setEmailAddress(e.target.value)}
+                            error={Boolean(errors.emailAddress)}
+                            helperText={errors.emailAddress}
+                        />
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="Telephone"
+                            value={telephone}
+                            onChange={(e) => setTelephone(e.target.value)}
+                            error={Boolean(errors.telephone)}
+                            helperText={errors.telephone}
+                        />
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="Password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            error={Boolean(errors.password)}
+                            helperText={errors.password}
+                        />
+                        <Box sx={{ mt: 2 }}>
+                            <Button type="submit" variant="contained" color="primary" fullWidth>
+                                Submit
+                            </Button>
+                            <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+                                Already registered? <Link to="/login">login here</Link>
+                            </Typography>
+                        </Box>
+                    </Box>
+                </CardContent>
+            </Card>
+        </Container>
+    );
+};
+
+export default Register;
+
+/*
+import React, { useState } from 'react';
 import { Authority, registerUser, User } from '../../services/UserService';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
@@ -209,3 +396,4 @@ const Register: React.FC = () => {
 };
 
 export default Register;
+*/

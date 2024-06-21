@@ -13,7 +13,7 @@ export const basicHeader = {
 
 const api: AxiosInstance = axios.create({
   baseURL: REST_API_BASE_URL,
-  headers: basicHeader,
+  //headers: basicHeader,
 });
 /*
 export const api: AxiosInstance = axios.create({

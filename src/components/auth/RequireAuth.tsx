@@ -22,7 +22,7 @@ const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
         return <>{children}</>;
     }
 
-    const allowedRoutes = ['/dashboard', '/user-calls', '/profile', '/make-call', '/payment', '/user-calls/invoiced', '/user-calls/paid', '/get-all-users', '/add-new-receiver'];
+    const allowedRoutes = ['/dashboard', '/profile', '/make-call', '/payment', '/user-calls/invoiced', '/user-calls/paid', '/get-all-users', '/add-new-receiver'];
 
     if (allowedRoutes.includes(location.pathname)) {
       

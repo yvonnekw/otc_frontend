@@ -3,6 +3,318 @@ import { getCallsByUsername } from '../../services/CallService';
 import { getUser } from '../../services/UserService';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from './AuthProvider';
+import {
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Divider,
+  Paper,
+  Alert
+} from '@mui/material';
+
+interface User {
+  username: string;
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
+  telephone: string;
+}
+
+interface Receiver {
+  telephone: string;
+}
+
+interface Call {
+  id: string;
+  callId: string;
+  startTime: string;
+  endTime: string;
+  receiver: Receiver[];
+  status: string;
+}
+
+const Profile: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [calls, setCalls] = useState<Call[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+
+  const location = useLocation();
+  const message = location.state && location.state.message;
+
+  const { isLoggedIn } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (isLoggedIn()) {
+        try {
+          const userData: User = await getUser(userId!);
+          setUser(userData);
+          setCurrentUser(localStorage.getItem('userId'));
+        } catch (error: any) {
+          console.error('Error fetching user details: ', error.message);
+          setErrorMessage(error.message);
+        }
+      }
+    };
+
+    fetchUser();
+  }, [isLoggedIn, userId, token]);
+
+  useEffect(() => {
+    const fetchCalls = async () => {
+      try {
+        const response: Call[] = await getCallsByUsername(userId!);
+        setCalls(response);
+      } catch (error: any) {
+        console.error('Error fetching calls: ', error.message);
+        setErrorMessage(error.message);
+      }
+    };
+
+    fetchCalls();
+  }, [userId, token]);
+
+  return (
+    <Container sx={{ mb: 3 }}>
+      {message && <Alert severity="info">{message}</Alert>}
+      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+      {user && (
+        <Card sx={{ p: 3, mt: 5, backgroundColor: 'whitesmoke' }}>
+          <Typography variant="h4" align="center" gutterBottom>
+            User Information
+          </Typography>
+          <CardContent>
+            <Typography variant="body1" gutterBottom>
+              <strong>Username:</strong> {user.username}
+            </Typography>
+            <Divider />
+            <Typography variant="body1" gutterBottom>
+              <strong>First Name:</strong> {user.firstName}
+            </Typography>
+            <Divider />
+            <Typography variant="body1" gutterBottom>
+              <strong>Last Name:</strong> {user.lastName}
+            </Typography>
+            <Divider />
+            <Typography variant="body1" gutterBottom>
+              <strong>Email Address:</strong> {user.emailAddress}
+            </Typography>
+            <Divider />
+            <Typography variant="body1" gutterBottom>
+              <strong>Phone number:</strong> {user.telephone}
+            </Typography>
+            <Divider />
+          </CardContent>
+          <Typography variant="h4" align="center" gutterBottom>
+            Call History
+          </Typography>
+          {calls.length > 0 ? (
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Call ID</TableCell>
+                    <TableCell>Start Time</TableCell>
+                    <TableCell>End Time</TableCell>
+                    <TableCell>Receiver Telephone</TableCell>
+                    <TableCell>Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {calls.map(call => (
+                    <TableRow key={call.id}>
+                      <TableCell>{call.callId}</TableCell>
+                      <TableCell>{call.startTime}</TableCell>
+                      <TableCell>{call.endTime}</TableCell>
+                      <TableCell>
+                        {Array.isArray(call.receiver)
+                          ? call.receiver.map(receiver => receiver.telephone).join(', ')
+                          : ''}
+                      </TableCell>
+                      <TableCell>{call.status}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ) : (
+            <Typography variant="body1" align="center">
+              No calls found
+            </Typography>
+          )}
+        </Card>
+      )}
+    </Container>
+  );
+};
+
+export default Profile;
+
+
+
+/*
+import React, { useState, useEffect, useContext } from 'react';
+import { getCallsByUsername } from '../../services/CallService';
+import { getUser } from '../../services/UserService';
+import { useLocation } from 'react-router-dom';
+import { AuthContext } from './AuthProvider';
+import { Container, Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Divider, Paper, Alert } from '@mui/material';
+
+interface User {
+  username: string;
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
+  telephone: string;
+}
+
+interface Call {
+  id: string;
+  callId: string;
+  startTime: string;
+  endTime: string;
+  receiver: { telephone: string }[];
+  status: string;
+}
+
+const Profile: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [calls, setCalls] = useState<Call[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+
+  const location = useLocation();
+  const message = location.state && location.state.message;
+
+  const { isLoggedIn } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (isLoggedIn()) {
+        try {
+          const userData: User = await getUser(userId!);
+          setUser(userData);
+          setCurrentUser(localStorage.getItem("userId"));
+        } catch (error) {
+          console.error("Error fetching user details: ", error.message);
+          setErrorMessage(error.message);
+        }
+      }
+    };
+
+    fetchUser();
+  }, [isLoggedIn, userId, token]);
+
+  useEffect(() => {
+    const fetchCalls = async () => {
+      try {
+        const response: Call[] = await getCallsByUsername(userId!);
+        setCalls(response);
+      } catch (error) {
+        console.error("Error fetching calls: ", error.message);
+        setErrorMessage(error.message);
+      }
+    };
+
+    fetchCalls();
+  }, [userId, token]);
+
+  return (
+    <Container sx={{ mb: 3 }}>
+      {message && <Alert severity="info">{message}</Alert>}
+      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+      {user && (
+        <Card sx={{ p: 3, mt: 5, backgroundColor: "whitesmoke" }}>
+          <Typography variant="h4" align="center" gutterBottom>
+            User Information
+          </Typography>
+          <CardContent>
+            <Typography variant="body1" gutterBottom>
+              <strong>Username:</strong> {user.username}
+            </Typography>
+            <Divider />
+            <Typography variant="body1" gutterBottom>
+              <strong>First Name:</strong> {user.firstName}
+            </Typography>
+            <Divider />
+            <Typography variant="body1" gutterBottom>
+              <strong>Last Name:</strong> {user.lastName}
+            </Typography>
+            <Divider />
+            <Typography variant="body1" gutterBottom>
+              <strong>Email Address:</strong> {user.emailAddress}
+            </Typography>
+            <Divider />
+            <Typography variant="body1" gutterBottom>
+              <strong>Phone number:</strong> {user.telephone}
+            </Typography>
+            <Divider />
+          </CardContent>
+          <Typography variant="h4" align="center" gutterBottom>
+            Call History
+          </Typography>
+          {calls.length > 0 ? (
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Call ID</TableCell>
+                    <TableCell>Start Time</TableCell>
+                    <TableCell>End Time</TableCell>
+                    <TableCell>Receiver Telephone</TableCell>
+                    <TableCell>Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {calls.map(call => (
+                    <TableRow key={call.id}>
+                      <TableCell>{call.callId}</TableCell>
+                      <TableCell>{call.startTime}</TableCell>
+                      <TableCell>{call.endTime}</TableCell>
+                      <TableCell>
+                        {Array.isArray(call.receiver)
+                          ? call.receiver.map(receiver => receiver.telephone).join(', ')
+                          : call.receiver.telephone}
+                      </TableCell>
+                      <TableCell>{call.status}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ) : (
+            <Typography variant="body1" align="center">
+              No calls found
+            </Typography>
+          )}
+        </Card>
+      )}
+    </Container>
+  );
+};
+
+export default Profile;
+*/
+/*
+import React, { useState, useEffect, useContext } from 'react';
+import { getCallsByUsername } from '../../services/CallService';
+import { getUser } from '../../services/UserService';
+import { useLocation } from 'react-router-dom';
+import { AuthContext } from './AuthProvider';
 
 interface User {
   username: string;
@@ -154,3 +466,4 @@ const Profile: React.FC = () => {
 
 export default Profile;
 
+*/
