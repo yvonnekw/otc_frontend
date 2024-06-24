@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import { basicHeader, REST_API_BASE_URL, getLoginHeader } from './ApiUtils';
+import { toast } from 'react-toastify';
 
 export interface Authority {
   authority: string;
@@ -59,6 +60,7 @@ export async function loginUser(user: any): Promise<any> {
   try {
     const response = await axios.post(`${REST_API_BASE_URL}/auth/login`, user, {
       headers: basicHeader,
+      //withCredentials: true,
     });
 
     if (response.status >= 200 && response.status < 300) {
@@ -66,12 +68,33 @@ export async function loginUser(user: any): Promise<any> {
       console.log('The username data:', response.data.data.user.username);
       console.log('The user data:', response.data.data.user);
       console.log('Success username authorities:', response.data.data.user.authorities[0].authority);
-      return response.data;
+
+      toast.success("Login successful");
+
+      return {
+        message: "Login successful",
+        data: response.data.data.token,
+        success: true,
+        error: false,
+      };
     } else {
-      throw new Error('Failed to log in');
+      toast.error("Login unsuccessful");
+
+      return {
+        message: "Login unsuccessful",
+        data: null,
+        success: false,
+        error: true,
+      };
     }
   } catch (error) {
     handleError(error, 'Error logging in');
+    return {
+      message: "Error logging in",
+      data: null,
+      success: false,
+      error: true,
+    };
   }
 }
 
@@ -128,12 +151,15 @@ export const getUsername = async (): Promise<string | null> => {
   }
 }
 
+
 function handleError(error: any, defaultMessage: string): void {
   if (axios.isAxiosError(error) && error.response) {
-    console.error(`${defaultMessage}: ${error.response.data}`);
-    throw new Error(error.response.data);
+    console.error(`${defaultMessage}: ${JSON.stringify(error.response.data)}`);
+    toast.error(error.response.data.message || defaultMessage);
   } else {
     console.error(`${defaultMessage}: ${error.message}`);
-    throw new Error(error.message);
+    toast.error(defaultMessage);
   }
 }
+
+export default handleError;

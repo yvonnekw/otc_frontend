@@ -24,6 +24,8 @@ import NotFound from './components/notFound/NotFound';
 import NewTelephoneNumberPage from './components/calls/NewTelephoneNumberPage'
 import InvoiceTable from './components/invoice/InvoiceTable';
 import PaymentTable from './components/payment/PaymentTable';
+import HeaderMain from './components/layout/HeaderMain';
+import ForgotPassword from './components/ForgotPassword';
 
 
 const App: React.FC = () => {
@@ -33,12 +35,14 @@ const App: React.FC = () => {
   return (
     <AuthProvider>
       <main>
+        <HeaderMain />
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/dashboard" element={
             <RequireAuth>
               <Dashboard />
@@ -101,9 +105,11 @@ const App: React.FC = () => {
             <RequireAuth>
               <Invoice />
             </RequireAuth>} />
+          
           <Route path="/logout" element={<Logout />} />
         </Routes>
       </main>
+      <Footer />
     </AuthProvider>
   );
 };

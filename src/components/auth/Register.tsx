@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Authority, registerUser } from '../../services/UserService';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { Container, Card, CardContent, Typography, TextField, Button, Alert, Box } from '@mui/material';
+import { Container, Card, CardContent, Typography, TextField, Button, Alert, Box, InputAdornment, IconButton } from '@mui/material';
+import { FaEye, FaEyeSlash } from 'react-icons/fa6';
+import { toast } from 'react-toastify';
 
 const Register: React.FC = () => {
     const location = useLocation();
@@ -13,6 +15,9 @@ const Register: React.FC = () => {
     const [emailAddress, setEmailAddress] = useState('');
     const [telephone, setTelephone] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
@@ -22,12 +27,14 @@ const Register: React.FC = () => {
         emailAddress: string;
         telephone: string;
         password: string;
+        confirmPassword: string;
     }>({
         firstName: '',
         lastName: '',
         emailAddress: '',
         telephone: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
     });
 
     const navigate = useNavigate();
@@ -36,32 +43,41 @@ const Register: React.FC = () => {
         e.preventDefault();
 
         if (validateForm()) {
-            const authorities: Authority[] = [{ authority: "USER" }];
-            const user: registerUser = {
-                firstName,
-                lastName,
-                emailAddress,
-                telephone,
-                password,
-                authorities
-            };
-            try {
-                const response = await registerUser(user);
-                if (response) {
-                    setSuccessMessage("A new user is registered");
-                    setErrorMessage('');
-                    navigate('/login');
-                } else {
-                    setErrorMessage('Error registering user');
+            if (password === confirmPassword) {
+                
+                const authorities: Authority[] = [{ authority: "USER" }];
+                const user: registerUser = {
+                    firstName,
+                    lastName,
+                    emailAddress,
+                    telephone,
+                    password,
+                    authorities
+                };
+                try {
+                    const response = await registerUser(user);
+                    if (response) {
+                        setSuccessMessage("A new user is registered");
+                        setErrorMessage('');
+                        toast.success(response)
+                        navigate('/login');
+                    } else {
+                        setErrorMessage('Error registering user');
+                        toast.success(response)
+                    }
+                } catch (error) {
+                    setSuccessMessage('');
+                    setErrorMessage(`Registration error: ${error.message}`);
+                   
                 }
-            } catch (error) {
-                setSuccessMessage('');
-                setErrorMessage(`Registration error: ${error.message}`);
+                setTimeout(() => {
+                    setErrorMessage('');
+                    setSuccessMessage('');
+                }, 5000);
+            } else {
+                setErrorMessage("Please check password and confirm password")
+                console.log("Please check password and confirm password")
             }
-            setTimeout(() => {
-                setErrorMessage('');
-                setSuccessMessage('');
-            }, 5000);
         }
     }
 
@@ -98,8 +114,21 @@ const Register: React.FC = () => {
             valid = false;
         }
 
+        if (!confirmPassword.trim()) {
+            errorsCopy.confirmPassword = 'Confirm password is required';
+            valid = false;
+        }
+
         setErrors(errorsCopy);
         return valid;
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(!showConfirmPassword);
     };
 
     return (
@@ -107,20 +136,13 @@ const Register: React.FC = () => {
             {message && <Alert severity="info">{message}</Alert>}
             {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
             {successMessage && <Alert severity="success">{successMessage}</Alert>}
-            {currentUser && (
-                <Typography variant="h6" color="textSecondary" align="center">
-                    You are logged in as: {currentUser}
-                    <Typography variant="subtitle1">
-                        Not you? <Link to="/login">login here</Link>
-                    </Typography>
-                </Typography>
-            )}
+
             <Card>
                 <CardContent>
                     <Typography variant="h4" align="center" gutterBottom>
                         Register here
                     </Typography>
-                    <Box component="form" onSubmit={saveUser} noValidate>
+                    <Box component="form" className='pt-6 flex flex-col gap-2' onSubmit={saveUser} noValidate>
                         <TextField
                             fullWidth
                             margin="normal"
@@ -161,17 +183,47 @@ const Register: React.FC = () => {
                             fullWidth
                             margin="normal"
                             label="Password"
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             error={Boolean(errors.password)}
                             helperText={errors.password}
+                            required
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton onClick={togglePasswordVisibility} edge="end">
+                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                        <TextField
+                            fullWidth
+                            margin="normal"
+                            label="Confirm Password"
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            error={Boolean(errors.confirmPassword)}
+                            helperText={errors.confirmPassword}
+                            required
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton onClick={toggleConfirmPasswordVisibility} edge="end">
+                                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                         <Box sx={{ mt: 2 }}>
-                            <Button type="submit" variant="contained" color="primary" fullWidth>
+                            <Button type="submit" variant="contained" color="primary" className="w-1/2 rounded-full hover:scale-110 transition-all mx-auto block mt-4" sx={{ mt: 2 }}>
                                 Submit
                             </Button>
-                            <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+                            <Typography variant="body2" align="center" sx={{ mt: 2 }} className='block w-fit ml-auto hover:underline hover:bg-blue-400'> 
                                 Already registered? <Link to="/login">login here</Link>
                             </Typography>
                         </Box>

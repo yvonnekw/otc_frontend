@@ -29,7 +29,7 @@ const MakeCall: React.FC = () => {
     useEffect(() => {
         setLoading(true);
         getCallsByUsernameAndStatus(currentUser, "Pending Invoice")
-            .then((data: any[]) => {  // Explicitly annotate data as an array of objects
+            .then((data: any[]) => {  
                 setSelectedCallIds(data.map((call) => call.callId));
                 setCalls(data);
                 setLoading(false);
@@ -198,6 +198,8 @@ const MakeCall: React.FC = () => {
                                     telephone: ""
                                 }}                            />
                         </Grid>
+                        </Grid>
+                        <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
