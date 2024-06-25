@@ -15,7 +15,7 @@ const Logout: React.FC = () => {
   return (
      <Container >
       <List>
-        <ListItem button component={Link} to="/profile">
+        <ListItem component={Link} to="/profile">
           Profile
         </ListItem>
         <Divider />
