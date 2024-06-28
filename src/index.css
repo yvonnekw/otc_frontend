@@ -1,6 +1,7 @@
 body {
     min-height: 100vh;
     padding-bottom: 50px;
+    @apply bg-slate-100
 }
 
 .card {
@@ -244,3 +245,7 @@ h2 {
     height: 60px;
     text-align: center;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

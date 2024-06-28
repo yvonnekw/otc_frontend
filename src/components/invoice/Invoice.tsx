@@ -8,8 +8,10 @@ interface InvoiceProps { }
 
 const Invoice: React.FC<InvoiceProps> = () => {
   const [invoices, setInvoices] = useState<InvoiceData[]>([]);
-  const userId = localStorage.getItem('userId') ?? '';
-  const { role } = useContext(AuthContext);
+  //const userId = localStorage.getItem('userId') ?? '';
+  const storedUser = localStorage.getItem('user');
+  const username = storedUser ? JSON.parse(storedUser).username : null;
+  const role = storedUser ? JSON.parse(storedUser).role : null;
 
   useEffect(() => {
     const fetchInvoices = async () => {
@@ -40,7 +42,7 @@ const Invoice: React.FC<InvoiceProps> = () => {
         Invoice List
       </Typography>
       <Divider sx={{ mb: 2 }} />
-      <CallsTable userId={userId} status="Invoiced" />
+      <CallsTable userId={username} status="Invoiced" />
     </Container>
   );
 };

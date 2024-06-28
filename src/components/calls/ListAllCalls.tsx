@@ -1,4 +1,90 @@
+import React, { useEffect, useContext } from 'react';
+import { AuthContext } from '../auth/AuthProvider';
+import { useLocation } from 'react-router-dom';
+import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Alert } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCalls } from '../../store/callsSlice';
+import { RootState } from '../../store/store';
 
+const ListAllCalls: React.FC = () => {
+    const dispatch = useDispatch<any>();
+    const calls = useSelector((state: RootState) => state.calls.calls);
+    const callsStatus = useSelector((state: RootState) => state.calls.status);
+    const callsError = useSelector((state: RootState) => state.calls.error);
+    const storedUser = localStorage.getItem('user');
+    const username = storedUser ? JSON.parse(storedUser).username : null;
+    const role = storedUser ? JSON.parse(storedUser).role : null;
+
+    const location = useLocation();
+    const message = location.state?.message;
+
+    useEffect(() => {
+        if (callsStatus === 'idle') {
+            dispatch(fetchCalls());
+        }
+    }, [callsStatus, dispatch]);
+
+    if (role !== 'ADMIN') {
+        return <Alert severity="error">You don't have permission to access this page.</Alert>;
+    }
+
+    return (
+        <Container>
+            {message && <Alert severity="warning">{message}</Alert>}
+            {username && <Typography variant="h6" color="textSecondary" align="center">You are logged in as: {username}</Typography>}
+            <Typography variant="h4" align="center" gutterBottom>
+                Call List
+            </Typography>
+            {callsStatus === 'loading' && <Typography>Loading...</Typography>}
+            {callsStatus === 'failed' && <Alert severity="error">{callsError}</Alert>}
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Call Id</TableCell>
+                            <TableCell>Call Date</TableCell>
+                            <TableCell>Start Time</TableCell>
+                            <TableCell>End Time</TableCell>
+                            <TableCell>Duration</TableCell>
+                            <TableCell>Cost Per Second</TableCell>
+                            <TableCell>Discount For Call</TableCell>
+                            <TableCell>VAT</TableCell>
+                            <TableCell>Gross Cost</TableCell>
+                            <TableCell>Net Cost</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>User</TableCell>
+                            <TableCell>Call Receiver</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {calls.map((call) => (
+                            <TableRow key={call.callId}>
+                                <TableCell>{call.callId}</TableCell>
+                                <TableCell>{new Date(call.callDate).toLocaleDateString()}</TableCell>
+                                <TableCell>{call.startTime}</TableCell>
+                                <TableCell>{call.endTime}</TableCell>
+                                <TableCell>{call.duration}</TableCell>
+                                <TableCell>{call.costPerSecond}</TableCell>
+                                <TableCell>{call.discountForCalls}</TableCell>
+                                <TableCell>{call.vat}</TableCell>
+                                <TableCell>{call.grossCost}</TableCell>
+                                <TableCell>{call.netCost}</TableCell>
+                                <TableCell>{call.status}</TableCell>
+                                <TableCell>{`${call.user.firstName} ${call.user.lastName}`}</TableCell>
+                                <TableCell>{call.receiver[0]?.telephone}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Container>
+    );
+};
+
+export default ListAllCalls;
+
+
+/*
 import React, { useEffect, useState, useContext } from 'react';
 import { listCalls } from '../../services/CallService';
 import { AuthContext } from '../auth/AuthProvider';
@@ -15,6 +101,7 @@ import {
     Paper,
     Alert
 } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
 interface User {
     userId: number;
@@ -49,10 +136,16 @@ interface Call {
 
 const ListAllCalls: React.FC = () => {
     const [calls, setCalls] = useState<Call[]>([]);
-    const location = useLocation();
-    const message = location.state?.message;
+  //  const location = useLocation();
+   // const message = location.state?.message;
     const { role } = useContext(AuthContext);
-    const userId = localStorage.getItem("userId");
+    //onst userId = localStorage.getItem("userId");
+    const storedUser = localStorage.getItem('user');
+    const username = storedUser ? JSON.parse(storedUser).username : null;
+
+    const dispatch = useDispatch<any>();
+    const location = useLocation();
+    const message = location.state && location.state.message;
 
     useEffect(() => {
         const fetchCalls = async () => {
@@ -81,7 +174,7 @@ const ListAllCalls: React.FC = () => {
     return (
         <Container>
             {message && <Alert severity="warning">{message}</Alert>}
-            {userId && <Typography variant="h6" color="textSecondary" align="center">You are logged in as: {userId}</Typography>}
+            {username && <Typography variant="h6" color="textSecondary" align="center">You are logged in as: {userId}</Typography>}
             <Typography variant="h4" align="center" gutterBottom>
                 Call List
             </Typography>
@@ -131,6 +224,7 @@ const ListAllCalls: React.FC = () => {
 
 export default ListAllCalls;
 
+*/
 
 /*
 import React, { useEffect, useState, useContext } from 'react';
