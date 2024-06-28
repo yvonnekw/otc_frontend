@@ -9,7 +9,6 @@ const Register: React.FC = () => {
     const location = useLocation();
     const message = location.state && location.state.message;
 
-    const currentUser = localStorage.getItem("userId");
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [emailAddress, setEmailAddress] = useState('');

@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { AppBar, Toolbar, Typography, Container} from '@mui/material';
 import Logo from '../Logo';
 import { FiSearch } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../auth/AuthProvider';
+
 
 const HeaderMain: React.FC = () => {
+  const auth = useContext(AuthContext);
+
+  const handleLogout = async () => {
+    const logout = auth.handleLogout();
+  }
+  
   return (
 
     <header className='h-16 shadow-md bg-white'>
