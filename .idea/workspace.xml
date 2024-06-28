@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b832a095-cbcb-4514-8b18-01a51f7c7236" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/invoice/InvoiceComp.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/hooks/useAppDispatch.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/hooks/useAppSelector.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/calls/CallsTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/CallsTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/calls/ListAllCalls.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/ListAllCalls.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/calls/MakeCall.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/MakeCall.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/calls/NewTelephoneNumberForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/NewTelephoneNumberForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/calls/NewTelephoneNumberPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/NewTelephoneNumberPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/invoice/Invoice.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/invoice/Invoice.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/payment/PaymentList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/payment/PaymentList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tables/callTableColumns.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tableColumns/callTableColumns.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tables/invoiceTableColumns.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tableColumns/invoiceTableColumns.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tables/paymentTableColumns copy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tableColumns/paymentTableColumns copy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tables/userTableColumns.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tableColumns/userTableColumns.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/CallReceiverService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CallReceiverService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/CallService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CallService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/InvoiceService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/InvoiceService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/authSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/authSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/callsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/callsSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/userReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/userReducer.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2eoRfNsB8ISFbFadrVYLzYE7dwA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;enable__make__call__input__fields&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/yvonnek/javaProject/otc_project/otc_frontend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/yvonnek/javaProject/otc_project/otc_frontend/node_modules/typescript/lib&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
+      <option name="appName" />
+      <option name="appServicePlanName" />
+      <option name="appServicePlanResourceGroup" />
+      <option name="appSettingsKey" value="1732ec3b-b3b7-4c45-ad62-7cc5b4e2b4ca" />
+      <option name="artifact" />
+      <option name="debugOptions" />
+      <option name="deployment" />
+      <option name="deploymentStagingDirectoryPath" />
+      <option name="funcPath" />
+      <option name="functionHostArguments" />
+      <option name="hostJsonPath" />
+      <option name="insightsName" />
+      <option name="instrumentationKey" />
+      <option name="javaVersion" />
+      <option name="localSettingsJsonPath" />
+      <option name="moduleName" />
+      <option name="os" />
+      <option name="pricingTier" />
+      <option name="providerMap">
+        <map />
+      </option>
+      <option name="region" />
+      <option name="resourceGroup" />
+      <option name="stagingFolder" />
+      <option name="subscription" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b832a095-cbcb-4514-8b18-01a51f7c7236" name="Changes" comment="" />
+      <created>1712569046563</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712569046563</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/store/callsSlice.ts</url>
+          <line>46</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

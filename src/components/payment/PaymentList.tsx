@@ -70,7 +70,7 @@ const PaymentList: React.FC = () => {
     const [payments, setPayments] = useState<Payment[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const { role } = useContext(AuthContext);
+   // const { role } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchPayments = async () => {

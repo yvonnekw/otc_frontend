@@ -32,7 +32,9 @@ const UserList: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const { role } = useContext(AuthContext);
+    const storedUser = localStorage.getItem('user');
+    const username = storedUser ? JSON.parse(storedUser).username : null;
+    const role = storedUser ? JSON.parse(storedUser).role : null;
 
     useEffect(() => {
         const fetchUsers = async () => {

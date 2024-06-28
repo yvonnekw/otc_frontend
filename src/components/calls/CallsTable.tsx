@@ -1,3 +1,347 @@
+import React, { useEffect, useMemo, useState } from 'react';
+import { getCallsByUsernameAndStatus } from '../../services/CallService';
+import { useLocation } from 'react-router-dom';
+import { useTable, useSortBy } from 'react-table';
+import TablePagination from '@mui/material/TablePagination';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import { COLUMNS } from '../tableColumns/callTableColumns';
+import { Call } from "../../store/types";
+
+interface Props {
+  userId: string;
+  status: string;
+}
+
+const CallsTable: React.FC<Props> = ({ userId, status }) => {
+  const [calls, setCalls] = useState<Call[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
+  const [page, setPage] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const location = useLocation();
+  const message = location.state && location.state.message;
+
+  const columns = useMemo(() => COLUMNS, []); // Use the provided COLUMNS array
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable<Call>(
+      {
+        columns,
+        data: calls,
+      },
+      useSortBy
+  );
+
+  useEffect(() => {
+    setLoading(true);
+    getCallsByUsernameAndStatus(userId, status)
+        .then((data) => {
+          setCalls(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setError(error);
+          setLoading(false);
+        });
+  }, [userId, status, page, rowsPerPage]);
+
+  const handleChangePage = (
+      event: React.MouseEvent<HTMLButtonElement> | null,
+      newPage: number
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+      event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const getHeadingText = (status: string) => {
+    switch (status) {
+      case 'Invoiced':
+        return 'Invoiced Calls';
+      case 'Pending Invoice':
+        return 'Current Calls';
+      case 'Paid':
+        return 'Paid Calls';
+      default:
+        return 'Call History';
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  return (
+      <div className='container'>
+        {message && <p className='text-warning px-5'>{message}</p>}
+        <br /> <br />
+        <h2 className='text-center'>{getHeadingText(status)}</h2>
+        {calls && calls.length === 0 ? (
+            <p>No calls to display.</p>
+        ) : (
+            <div>
+              <table
+                  className='table table-striped table-bordered'
+                  id='callTable'
+                  {...getTableProps()}
+              >
+                <caption>{getHeadingText(status)}</caption>
+                <thead>
+                {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column) => (
+                          <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                            <TableSortLabel
+                                active={column.isSorted}
+                                direction={column.isSortedDesc ? 'desc' : 'asc'}
+                                {...column.getSortByToggleProps()}
+                            >
+                              {column.render('Header')}
+                            </TableSortLabel>
+                          </th>
+                      ))}
+                    </tr>
+                ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                {rows.map((row) => {
+                  prepareRow(row);
+                  return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map((cell) => (
+                            <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                        ))}
+                      </tr>
+                  );
+                })}
+                </tbody>
+              </table>
+              <TablePagination
+                  component='div'
+                  count={calls.length}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  rowsPerPage={rowsPerPage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </div>
+        )}
+      </div>
+  );
+};
+
+export default CallsTable;
+
+
+/*
+import React, { useEffect, useMemo, useState } from 'react';
+import { getCallsByUsernameAndStatus } from '../../services/CallService';
+import { useLocation } from 'react-router-dom';
+import { useTable, useSortBy, Column } from 'react-table';
+import TablePagination from '@mui/material/TablePagination';
+import TableSortLabel from '@mui/material/TableSortLabel';
+
+interface Call {
+  id: string;
+  callId: string;
+  startTime: string;
+  endTime: string;
+  duration: number;
+  costPerSecond: number;
+  discountForCalls: number;
+  vat: number;
+  netCost: number;
+  grossCost: number;
+  callDate: string;
+  status: string;
+}
+
+interface Props {
+  userId: string;
+  status: string;
+}
+
+const CallsTable: React.FC<Props> = ({ userId, status }) => {
+  const [calls, setCalls] = useState<Call[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
+  const [page, setPage] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const location = useLocation();
+  const message = location.state && location.state.message;
+
+  const columns: Column<Call>[] = useMemo(
+      () => [
+        {
+          Header: 'Call ID',
+          accessor: 'callId',
+        },
+        {
+          Header: 'Start Time',
+          accessor: 'startTime',
+        },
+        {
+          Header: 'End Time',
+          accessor: 'endTime',
+        },
+        {
+          Header: 'Duration',
+          accessor: 'duration',
+        },
+        {
+          Header: 'Cost',
+          accessor: 'grossCost',
+        },  {
+          Header: 'Cost',
+          accessor: 'grossCost',
+        },
+        // Add more columns as needed
+      ],
+      []
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable<Call>(
+      {
+        columns,
+        data: calls,
+      },
+      useSortBy
+  );
+
+  useEffect(() => {
+    setTimeout(() => {
+      getCallsByUsernameAndStatus(userId, status)
+          .then((data) => {
+            setCalls(data);
+            setLoading(false);
+          })
+          .catch((error) => {
+            setError(error.message);
+            setLoading(false);
+          });
+    }, 1000);
+  }, [userId, status, page, rowsPerPage]);
+
+  const handleChangePage = (
+      event: React.MouseEvent<HTMLButtonElement> | null,
+      newPage: number
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+      event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const getHeadingText = (status: string) => {
+    switch (status) {
+      case 'Invoiced':
+        return 'Invoiced Calls';
+      case 'Pending Invoice':
+        return 'Current Calls';
+      case 'Paid':
+        return 'Paid Calls';
+      default:
+        return 'Call History';
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  return (
+      <div className='container'>
+        {message && <p className='text-warning px-5'>{message}</p>}
+        <br /> <br />
+        <h2 className='text-center'>{getHeadingText(status)}</h2>
+        {calls && calls.length === 0 ? (
+            <p>No calls to display.</p>
+        ) : (
+            <div>
+              <table
+                  className='table table-striped table-bordered'
+                  id='callTable'
+                  {...getTableProps()}
+              >
+                <caption>{getHeadingText(status)}</caption>
+                <thead>
+                {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column) => (
+                          <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                            <TableSortLabel
+                                active={column.isSorted}
+                                direction={column.isSortedDesc ? 'desc' : 'asc'}
+                                {...column.getSortByToggleProps()}
+                            >
+                              {column.render('Header')}
+                            </TableSortLabel>
+                          </th>
+                      ))}
+                    </tr>
+                ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                {rows.map((row) => {
+                  prepareRow(row);
+                  return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map((cell) => (
+                            <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                        ))}
+                      </tr>
+                  );
+                })}
+                </tbody>
+              </table>
+              <TablePagination
+                  component='div'
+                  count={calls.length}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  rowsPerPage={rowsPerPage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </div>
+        )}
+      </div>
+  );
+};
+
+export default CallsTable;
+
+*/
+
+/*
+
 import React, { useEffect, useState } from 'react';
 import { getCallsByUsernameAndStatus } from '../../services/CallService';
 import { useLocation } from 'react-router-dom';
@@ -101,7 +445,8 @@ const CallsTable: React.FC<Props> = ({ userId, status }) => {
       ) : (
         <div>
           <table className="table table-striped table-bordered" id="callTable" {...getTableProps()}>
-            <thead>
+              <caption>{getHeadingText(status)}</caption>
+              <thead>
               {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map(column => (
@@ -139,7 +484,7 @@ const CallsTable: React.FC<Props> = ({ userId, status }) => {
 
 export default CallsTable;
 
-
+*/
 /*
 
 import React, { useEffect, useRef, useState } from 'react';

@@ -9,6 +9,7 @@ import {
   Box,
   Alert,
 } from '@mui/material';
+import Invoice from "../invoice/Invoice";
 
 const AdminUI: React.FC = () => {
   const { role } = useContext(AuthContext);
@@ -42,7 +43,7 @@ const AdminUI: React.FC = () => {
         </Button>
       </Box>
       <Box mt={5}>
-        <ListAllCalls />
+       <Invoice />
       </Box>
     </Container>
   );

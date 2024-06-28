@@ -1,6 +1,7 @@
 import axios from "axios";
-import { basicHeader, REST_API_BASE_URL, api, getLoginHeader } from "./ApiUtils";
-
+import { basicHeader, REST_API_BASE_URL, getLoginHeader } from "./ApiUtils";
+import { InvoiceData } from '../store/types';
+/*
 export interface InvoiceData {
   totalAmount: string;
   status: string;
@@ -8,6 +9,7 @@ export interface InvoiceData {
   calls: CallData[];
   invoiceDate: string;
 }
+*/
 
 interface CallData {
   callId: number;

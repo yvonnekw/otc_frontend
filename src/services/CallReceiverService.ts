@@ -8,6 +8,24 @@ export interface CallReceiver {
   relationship: string;
 }
 
+export const addReceiver = async (telephone: string, username: string, fullName: string, relationship: string) => {
+  try {
+    const payload = {
+      telephone,
+      username,
+      fullName,
+      relationship,
+    };
+    console.log('Request payload:', payload);
+
+    const response = await api.post(`${REST_API_BASE_URL}/call-receiver/add-receiver`, payload);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding new receiver:', error.response ? error.response.data : error.message);
+    throw new Error('Error adding new receiver');
+  }
+};
+/*
 export async function addReceiver(
   telephone: string,
   username: string,
@@ -33,7 +51,7 @@ export async function addReceiver(
   }
 }
     
-
+*/
 export async function getTelephoneNumbers(username: string): Promise<string[]> {
   try {
     const response: AxiosResponse = await api.get(
