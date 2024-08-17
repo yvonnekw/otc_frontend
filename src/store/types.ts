@@ -25,19 +25,27 @@ export interface User {
 
 // Call Type
 export interface Call {
-    callId: number;
+    callId?: number;
+    startTime?: string;
+    endTime?: string;
+    duration?: string;
+    costPerSecond?: string;
+    discountForCalls?: string;
+    vat?: string;
+    netCost?: string;
+    grossCost?: string;
+    callDate?: string;
+    status?: string;
+    user?: User;
+    receiver?: Receiver;
+}
+
+export interface UserCall extends Omit<Call, 'startTime' | 'endTime' | 'discountForCalls'> {
     startTime: string;
     endTime: string;
-    duration: string;
-    costPerSecond: string;
     discountForCalls: string;
-    vat: string;
-    netCost: string;
-    grossCost: string;
-    callDate: string;
-    status: string;
-    user: User;
-    receiver: Receiver;
+    username: string | null;
+    telephone: string;
 }
 
 // Receiver Type
@@ -48,6 +56,12 @@ export interface Receiver {
     relationship: string;
     user: User;
 }
+
+//export type ReceiverSubset = Pick<Receiver, 'telephone'>;
+
+export interface ReceiverSubset extends Receiver{
+    telephone: string;
+}
 // Invoice Types
 export interface InvoiceData {
     invoiceId: string;
@@ -56,6 +70,11 @@ export interface InvoiceData {
     status: string;
     calls: Call[];
 }
+
+export interface EnterCallResponse {
+    data: Call;
+}
+
 
 export interface Authority {
     roleId: number;

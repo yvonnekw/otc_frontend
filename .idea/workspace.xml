@@ -4,32 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b832a095-cbcb-4514-8b18-01a51f7c7236" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/invoice/InvoiceComp.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/hooks/useAppDispatch.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/hooks/useAppSelector.ts" afterDir="false" />
+    <list default="true" id="b832a095-cbcb-4514-8b18-01a51f7c7236" name="Changes" comment="managing user and data&#10;&#10;Improve auth">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calls/CallsTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/CallsTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calls/ListAllCalls.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/ListAllCalls.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/calls/MakeCall.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/MakeCall.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calls/NewTelephoneNumberForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/NewTelephoneNumberForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calls/NewTelephoneNumberPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/NewTelephoneNumberPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/invoice/Invoice.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/invoice/Invoice.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/payment/PaymentList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/payment/PaymentList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tables/callTableColumns.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tableColumns/callTableColumns.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tables/invoiceTableColumns.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tableColumns/invoiceTableColumns.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tables/paymentTableColumns copy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tableColumns/paymentTableColumns copy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tables/userTableColumns.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tableColumns/userTableColumns.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/CallReceiverService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CallReceiverService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/CallService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CallService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/InvoiceService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/InvoiceService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/authSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/authSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/callsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/callsSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/callReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/callReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/userReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/userReducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,10 +89,32 @@
       <option name="presentableId" value="Default" />
       <updated>1712569046563</updated>
     </task>
+    <task id="LOCAL-00001" summary="managing user and data&#10;&#10;Improve auth">
+      <option name="closed" value="true" />
+      <created>1723755121885</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1723755121885</updated>
+    </task>
+    <task id="LOCAL-00002" summary="managing user and data&#10;&#10;Improve auth">
+      <option name="closed" value="true" />
+      <created>1723755142276</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1723755142276</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge pull request #10 from yvonnekw/improve_auth&#10;&#10;Improve auth" />
+    <MESSAGE value="managing user and data&#10;&#10;Improve auth" />
+    <option name="LAST_COMMIT_MESSAGE" value="managing user and data&#10;&#10;Improve auth" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -118,7 +122,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/store/callsSlice.ts</url>
           <line>46</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

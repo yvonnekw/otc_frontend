@@ -1,21 +1,7 @@
 import { basicHeader, REST_API_BASE_URL, api } from "./ApiUtils";
 import axios from "axios";
-import {Call} from "../store/types";
-/*
-interface Call {
-  id: number;
-  callId: string;
-  startTime: string;
-  endTime: string;
-  duration: number;
-  totalTime: number;
-  costPerSecond: number;
-  discountForCalls: number;
-  vat: number;
-  netCost: number;
-  grossCost: number;
-}
-*/
+import {Call, EnterCallResponse} from "../store/types";
+
 // Changed Promise<never> to the appropriate return type
 export async function getCallsByUsername(username: string): Promise<Call[]> {
   try {
@@ -104,6 +90,22 @@ export async function updateCallStatus(username: string, status: string): Promis
   }
 }
 
+export const enterCall = async (call: Call): Promise<EnterCallResponse> => {
+    try {
+        const response = await axios.post(
+            `${REST_API_BASE_URL}/calls/make-call`,
+            call,
+            {
+                headers: basicHeader,
+            }
+        );
+        console.log("response from entercall ", response)
+        return response.data; // Ensure this matches your response structure
+    } catch (error) {
+        throw new Error(`Error making call: ${error.message}`);
+    }
+};
+/*
 // Updated enterCall function to return Call instead of never
 export const enterCall = async (call: Call): Promise<Call> => {
   try {
@@ -119,7 +121,7 @@ export const enterCall = async (call: Call): Promise<Call> => {
     throw new Error(`Error making call: ${error.message}`);
   }
 };
-
+*/
 export const getCallReceiversForUser = async (
     username: string
 ): Promise<any[]> => {
@@ -148,7 +150,7 @@ export const checkPhoneNumberExists = async (
           headers: basicHeader,
         }
     );
-    return response.data.exists; // Assuming the API returns a boolean or an object with a boolean property
+    return response.data; // Assuming the API returns a boolean or an object with a boolean property
   } catch (error) {
     throw new Error(`Error checking phone number: ${error.message}`);
   }
