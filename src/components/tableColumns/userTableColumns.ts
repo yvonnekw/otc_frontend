@@ -1,5 +1,7 @@
+import {Payment, User} from "../../store/types";
+import {Column} from "react-table";
 
-export const COLUMNS = [
+export const COLUMNS: Column<User>[] = [
     {
         Header: 'Username'
     },

@@ -1,4 +1,4 @@
-// reducer.ts
+
 import { ActionTypes, SET_USER, SET_ERROR_MESSAGE } from './types';
 import { AuthState } from './types'; // Import AuthState from types.ts
 

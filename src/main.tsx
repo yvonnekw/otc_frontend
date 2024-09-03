@@ -7,10 +7,32 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
-import store from './store/store'; 
+import { store } from './store/store'; 
 import { Provider } from 'react-redux';
 import AuthProvider from './components/auth/AuthProvider';
 
+const rootElement = document.getElementById('root') as HTMLElement;
+
+const renderApp = () => {
+  createRoot(rootElement).render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <React.StrictMode>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </React.StrictMode>
+      </BrowserRouter>
+    </Provider>
+  );
+};
+
+try {
+  renderApp();
+} catch (error) {
+  console.error('Error rendering the application:', error);
+}
+/*
 createRoot(document.getElementById('root') as HTMLElement).render(
 
   <Provider store={store}>
@@ -24,7 +46,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
   </Provider>,
 
 );
-
+*/
 
 /*
 import React from 'react';

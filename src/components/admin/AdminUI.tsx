@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import ListAllCalls from '../calls/ListAllCalls';
 import { AuthContext } from '../auth/AuthProvider';
 import {
   Container,
@@ -9,6 +8,7 @@ import {
   Box,
   Alert,
 } from '@mui/material';
+import AdminInvoiceTable from "../invoice/AdminInvoiceTable";
 
 const AdminUI: React.FC = () => {
   const { role } = useContext(AuthContext);
@@ -42,7 +42,7 @@ const AdminUI: React.FC = () => {
         </Button>
       </Box>
       <Box mt={5}>
-        <ListAllCalls />
+       <AdminInvoiceTable />
       </Box>
     </Container>
   );

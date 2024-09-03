@@ -36,7 +36,7 @@ const Payment: React.FC = () => {
     try {
       if (invoiceId) {
         const invoiceData = await searchInvoiceById(invoiceId);
-        setNetCost(invoiceData.totalAmount);
+        setNetCost(invoiceData.totalAmount.toString());
         setSuccessMessage('Invoice Found.');
         setErrorMessage('');
       } else {
@@ -60,6 +60,7 @@ const Payment: React.FC = () => {
       issueNumber: issueNumber,
       securityNumber: securityNumber,
       invoiceId: invoiceId,
+      username: userId,
     };
     try {
       const response = await makePayment(paymentBody);
@@ -212,7 +213,7 @@ const Payment: React.FC = () => {
       if (invoiceId) { 
         const invoiceData = await searchInvoiceById(invoiceId); 
         setNetCost(invoiceData.totalAmount);
-        setSuccessMessage("Invoice Found.");
+        setSuccessMessage("AdminInvoiceTable Found.");
         setErrorMessage(" ");
       } else {
         setErrorMessage("Please enter an invoice ID.");
@@ -222,7 +223,7 @@ const Payment: React.FC = () => {
       setNetCost(" ");
       setSuccessMessage(" ");
       setInvoiceNotFound(true);
-      setErrorMessage("Invoice not found.");
+      setErrorMessage("AdminInvoiceTable not found.");
     }
   };
 
@@ -254,7 +255,7 @@ const Payment: React.FC = () => {
           <div className="card-body">
             <div className="row">
               <div className="form-group mb-2">
-                <label>Invoice ID:</label>
+                <label>AdminInvoiceTable ID:</label>
                 <input
                   type="text"
                   className="form-control"
@@ -265,14 +266,14 @@ const Payment: React.FC = () => {
                   className="btn btn-success"
                   onClick={handleSearchInvoice}
                 >
-                  Search Invoice
+                  Search AdminInvoiceTable
                 </button>
-                {invoiceNotFound && <p>Invoice not found.</p>}
+                {invoiceNotFound && <p>AdminInvoiceTable not found.</p>}
                 {!invoiceNotFound &&
-                  (<p> Invoice found. </p>) && (
+                  (<p> AdminInvoiceTable found. </p>) && (
                     <div>
                       <p>amount: {netCost}</p>
-                      <p>Invoice ID: {invoiceId}</p>
+                      <p>AdminInvoiceTable ID: {invoiceId}</p>
                       <p>Payment Date: {paymentDate}</p>
                     </div>
                   )}

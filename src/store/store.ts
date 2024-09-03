@@ -1,5 +1,13 @@
-// store.ts
+import { configureStore } from '@reduxjs/toolkit';
+import combinedReducer from './combinedReducer';
 
+export const store = configureStore({
+    reducer: combinedReducer,
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+/*
 import { configureStore } from '@reduxjs/toolkit';
 import combinedReducer from './combinedReducer';
 export type RootState = ReturnType<typeof combinedReducer>;
@@ -10,6 +18,8 @@ const store = configureStore({
 });
 
 export default store;
+
+*/
 
 
 // Store has all of the default middleware added, _plus_ the logger middleware

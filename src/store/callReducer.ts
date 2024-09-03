@@ -3,19 +3,20 @@
 import { ActionTypes, Call, SET_CALLS, SET_ERROR_MESSAGE, SET_SUCCESS_MESSAGE } from './types';
 
 interface State {
-    status: any;
-    error: any;
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: string | null;
     calls: Call[];
     errorMessage: string;
     successMessage: string;
 }
 
+
 const initialState: State = {
     calls: [],
     errorMessage: '',
     successMessage: '',
-    status: undefined,
-    error: undefined
+    status: "idle",
+    error: null
 };
 
 const callsReducer = (state = initialState, action: ActionTypes): State => {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import moment from 'moment'; 
 import { invoice } from '../../services/InvoiceService'; 
 
@@ -13,7 +13,7 @@ const createInvoice = async (totalBill: number, calls: any[]) => {
 
     try {
         const response = await invoice(invoiceBody);
-        console.log("Invoice data: ", response);
+        console.log("AdminInvoiceTable data: ", response);
         const invoiceId = response.invoiceId;
         console.log("The new invoiceId: " + invoiceId);
         return invoiceId;
