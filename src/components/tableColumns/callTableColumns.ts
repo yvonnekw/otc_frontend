@@ -1,63 +1,50 @@
-import { Column } from 'react-table';
+import { Call } from '../../store/types'
+import {GridColDef} from "@mui/x-data-grid";
 
-interface Call {
-    id: string;
-    callId: string;
-    startTime: string;
-    endTime: string;
-    duration: number;
-    costPerSecond: number;
-    discountForCalls: number;
-    vat: number;
-    netCost: number;
-    grossCost: number;
-    callDate: string;
-    status: string;
-}
 
-export const COLUMNS: Column<Call>[] = [
+export const COLUMNS: GridColDef<Call>[]  = [
     {
-        Header: 'Call Id',
-        accessor: 'callId',
+        headerName: 'Call Id',
+        field: 'callId',
     },
     {
-        Header: 'Call Date',
-        accessor: 'callDate',
+        headerName: 'Call Date',
+        field: 'callDate',
     },
     {
-        Header: 'Start Time',
-        accessor: 'startTime',
+        headerName: 'Start Time',
+        field: 'startTime',
     },
     {
-        Header: 'End Time',
-        accessor: 'endTime',
+        headerName: 'End Time',
+        field: 'endTime',
     },
     {
-        Header: 'Duration',
-        accessor: 'duration',
+        headerName: 'Duration',
+        field: 'duration',
     },
     {
-        Header: 'Cost Per Second',
-        accessor: 'costPerSecond',
+        headerName: 'Cost Per Second',
+        field: 'costPerSecond',
     },
     {
-        Header: 'Discount',
-        accessor: 'discountForCalls',
+        headerName: 'Discount',
+        field: 'discountForCalls',
     },
     {
-        Header: 'Call Gross Cost',
-        accessor: 'grossCost',
+        headerName: 'Call Gross Cost',
+        field: 'grossCost',
     },
     {
-        Header: 'VAT',
-        accessor: 'vat',
+        headerName: 'VAT',
+        field: 'vat',
     },
     {
-        Header: 'Net Cost',
-        accessor: 'netCost',
+        headerName: 'Net Cost',
+        field: 'netCost',
     },
     {
-        Header: 'Status',
-        accessor: 'status',
+        headerName: 'Status',
+        field: 'status',
     },
 ];

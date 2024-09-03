@@ -219,7 +219,7 @@ export async function getPaidCallsByUsername(username: string): Promise<never> {
 export async function getPendingInvoicedCallsByUsername(username: string): Promise<any> {
   try {
     const response = await axios.get(
-      REST_API_BASE_URL + `/calls/user/${username}/calls?status=Pending Invoice`,
+      REST_API_BASE_URL + `/calls/user/${username}/calls?status=Pending AdminInvoiceTable`,
       {
         headers: basicHeader,
       }

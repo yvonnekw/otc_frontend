@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 // Action Constants
 export const SET_USER = 'SET_USER';
 export const SET_CALLS = 'SET_CALLS';
@@ -9,7 +7,7 @@ export const SET_SUCCESS_MESSAGE = 'SET_SUCCESS_MESSAGE';
 // User Type
 export interface User {
     userId: number;
-    username: string;
+    username?: string;
     password: string;
     firstName: string;
     lastName: string;
@@ -68,13 +66,26 @@ export interface InvoiceData {
     invoiceDate: string; // ISO date string or Date object
     totalAmount: number;
     status: string;
-    calls: Call[];
+    callIds: string;
+    username?: string;
 }
 
+export interface Payment {
+    paymentId: number;
+    amount: number;
+    paymentDate: string;
+    fullNameOnPaymentCard: string;
+    cardNumber: string;
+    expiringDate: string;
+    issueNumber: string;
+    securityNumber: string;
+    status: string;
+    invoiceId: string;
+    username?: string;
+}
 export interface EnterCallResponse {
     data: Call;
 }
-
 
 export interface Authority {
     roleId: number;

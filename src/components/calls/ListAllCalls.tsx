@@ -1,3 +1,148 @@
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+    Container,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    CircularProgress,
+    Typography,
+    TextField,
+    TableSortLabel,
+} from '@mui/material';
+import { useTable, useSortBy, useGlobalFilter } from 'react-table';
+import { Call } from "../../store/types";
+import { listCalls } from "../../services/CallService";
+import { useAppDispatch } from "../../store/hooks/useAppDispatch";
+import { fetchCalls } from "../../store/callsSlice";
+import { useAppSelector } from "../../store/hooks/useAppSelector";
+import { COLUMNS } from '../tableColumns/callTableColumns';
+
+const ListAllCalls: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const [calls, setCalls] = useState<Call[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const status = useAppSelector(state => state.calls.status);
+
+    useEffect(() => {
+        const fetchCallsData = async () => {
+            try {
+                const response = await listCalls();
+                setCalls(response);
+                setLoading(false);
+            } catch (error) {
+                setError('Error fetching calls. Please try again.');
+                setLoading(false);
+            }
+        };
+
+        fetchCallsData();
+    }, []);
+
+    useEffect(() => {
+        if (status === 'idle') {
+            dispatch(fetchCalls());
+        }
+    }, [status, dispatch]);
+
+    const columns = useMemo(() => COLUMNS, []);
+    const data = useMemo(() => calls, [calls]);
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+        state,
+        setGlobalFilter,
+    } = useTable<Call>(
+        {
+            columns,
+            data,
+        },
+        useGlobalFilter,
+        useSortBy
+    );
+
+    const { globalFilter } = state;
+
+    if (loading) {
+        return (
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                <CircularProgress />
+                <Typography variant="h6">Loading...</Typography>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                <Typography variant="h6" color="error">Error: {error}</Typography>
+            </div>
+        );
+    }
+
+    return (
+        <Container maxWidth="lg" sx={{ mt: 5 }}>
+            <Typography variant="h4" gutterBottom>
+                All Call List
+            </Typography>
+
+            {/* Search Input */}
+            <TextField
+                label="Search Calls"
+                variant="outlined"
+                sx={{ width: '50%', mb: 4 }}
+                value={globalFilter || ''}
+                onChange={(e) => setGlobalFilter(e.target.value)}
+                sx={{ mb: 2 }}
+            />
+
+            <TableContainer component={Paper}>
+                <Table {...getTableProps()}>
+                    <TableHead>
+                        {headerGroups.map(headerGroup => (
+                            <TableRow {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map(column => (
+                                    <TableCell {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                        {column.render('Header')}
+                                        <TableSortLabel
+                                            active={column.isSorted}
+                                            direction={column.isSortedDesc ? 'desc' : 'asc'}
+                                        />
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableHead>
+                    <TableBody {...getTableBodyProps()}>
+                        {rows.map(row => {
+                            prepareRow(row);
+                            return (
+                                <TableRow {...row.getRowProps()}>
+                                    {row.cells.map(cell => (
+                                        <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>
+                                    ))}
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Container>
+    );
+};
+
+export default ListAllCalls;
+
+/*
 import React, { useEffect, useState } from 'react';
 import { Call } from "../../store/types";
 import { listCalls } from "../../services/CallService";
@@ -168,7 +313,7 @@ const ListAllCalls: React.FC = () => {
 
 export default ListAllCalls;
 
-
+*/
 
 /*
 import React, {useEffect, useState} from 'react';

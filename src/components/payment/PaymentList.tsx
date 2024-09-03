@@ -1,6 +1,142 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import {
+    Container,
+    Typography,
+    Table,
+    TableContainer,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell,
+    Paper,
+    CircularProgress,
+    Alert,
+    TextField,
+} from '@mui/material';
+import { useTable, useSortBy, useGlobalFilter } from 'react-table';
 import { getPayments } from '../../services/PaymentService';
-import { AuthContext } from '../auth/AuthProvider';
+import { Payment } from '../../store/types';
+import { COLUMNS } from '../tableColumns/paymentTableColumns';
+
+const PaymentList: React.FC = () => {
+    const [payments, setPayments] = useState<Payment[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchPayments = async () => {
+            try {
+                const response = await getPayments();
+                setPayments(response);
+                setLoading(false);
+            } catch (error) {
+                setError('Error fetching payments. Please try again.');
+                setLoading(false);
+            }
+        };
+
+        fetchPayments();
+    }, []);
+
+    const columns = useMemo(() => COLUMNS, []);
+    const data = useMemo(() => payments, [payments]);
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+        state,
+        setGlobalFilter,
+    } = useTable<Payment>(
+        {
+            columns,
+            data,
+        },
+        useGlobalFilter,
+        useSortBy
+    );
+
+    const { globalFilter } = state;
+
+    if (loading) {
+        return (
+            <Container maxWidth="sm" sx={{ mt: 5 }}>
+                <CircularProgress />
+            </Container>
+        );
+    }
+
+    if (error) {
+        return (
+            <Container maxWidth="sm" sx={{ mt: 5 }}>
+                <Alert severity="error">{error}</Alert>
+            </Container>
+        );
+    }
+
+    return (
+        <Container maxWidth="lg" sx={{ mt: 5 }}>
+            <Typography variant="h4" gutterBottom>
+                Payment List
+            </Typography>
+
+            {/* Search Input */}
+            <TextField
+                label="Search Payments"
+                variant="outlined"
+                sx={{ width: '50%', mb: 2 }}
+                value={globalFilter || ''}
+                onChange={(e) => setGlobalFilter(e.target.value)}
+                sx={{ mb: 2 }}
+            />
+
+            <TableContainer component={Paper}>
+                <Table {...getTableProps()}>
+                    <TableHead>
+                        {headerGroups.map(headerGroup => (
+                            <TableRow {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map(column => (
+                                    <TableCell {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                        {column.render('Header')}
+                                        <span>
+                                            {column.isSorted
+                                                ? column.isSortedDesc
+                                                    ? ' 🔽'
+                                                    : ' 🔼'
+                                                : ''}
+                                        </span>
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableHead>
+                    <TableBody {...getTableBodyProps()}>
+                        {rows.map(row => {
+                            prepareRow(row);
+                            return (
+                                <TableRow {...row.getRowProps()}>
+                                    {row.cells.map(cell => (
+                                        <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>
+                                    ))}
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Container>
+    );
+};
+
+export default PaymentList;
+
+/*
+import React, { useState, useEffect } from 'react';
+import { getPayments } from '../../services/PaymentService';
+import { Payment } from '../../store/types';
+
 import {
     Container,
     Typography,
@@ -15,6 +151,110 @@ import {
     Alert,
 } from '@mui/material';
 
+const PaymentRow: React.FC<{ payment: Payment }> = ({ payment }) => (
+    <TableRow key={payment.paymentId}>
+        <TableCell>{payment.paymentId}</TableCell>
+        <TableCell>{payment.invoice ? payment.invoice.invoiceId : 'N/A'}</TableCell>
+        <TableCell>{payment.amount}</TableCell>
+        <TableCell>{payment.paymentDate}</TableCell>
+        <TableCell>{payment.cardNumber ? payment.cardNumber.slice(-4) : 'N/A'}</TableCell>
+        <TableCell>{payment.status}</TableCell>
+        <TableCell>
+            {payment.invoice?.calls[0]?.user
+                ? `${payment.invoice.calls[0].user.firstName} ${payment.invoice.calls[0].user.lastName}`
+                : 'N/A'}
+        </TableCell>
+        <TableCell>{payment.invoice?.calls[0]?.receiver?.telephone || 'N/A'}</TableCell>
+    </TableRow>
+);
+
+const PaymentList: React.FC = () => {
+    const [payments, setPayments] = useState<Payment[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchPayments = async () => {
+            try {
+                const response = await getPayments();
+                setPayments(response);
+                setLoading(false);
+            } catch (error) {
+                setError('Error fetching payments. Please try again.');
+                setLoading(false);
+            }
+        };
+
+        fetchPayments();
+    }, []);
+
+    if (loading) {
+        return (
+            <Container maxWidth="sm" sx={{ mt: 5 }}>
+                <CircularProgress />
+            </Container>
+        );
+    }
+
+    if (error) {
+        return (
+            <Container maxWidth="sm" sx={{ mt: 5 }}>
+                <Alert severity="error">{error}</Alert>
+            </Container>
+        );
+    }
+
+    return (
+        <Container maxWidth="lg" sx={{ mt: 5 }}>
+            <Typography variant="h4" gutterBottom>
+                Payment List
+            </Typography>
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Payment ID</TableCell>
+                            <TableCell>Invoice ID</TableCell>
+                            <TableCell>Amount</TableCell>
+                            <TableCell>Payment Date</TableCell>
+                            <TableCell>Card Number</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>User</TableCell>
+                            <TableCell>Receiver</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {payments.map((payment) => (
+                            <PaymentRow key={payment.paymentId} payment={payment} />
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Container>
+    );
+};
+
+export default PaymentList;
+*/
+/*
+import React, { useState, useEffect } from 'react';
+import { getPayments } from '../../services/PaymentService';
+import { Payment, InvoiceData, Call, User, Receiver} from '../../store/types';
+
+import {
+    Container,
+    Typography,
+    Table,
+    TableContainer,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell,
+    Paper,
+    CircularProgress,
+    Alert,
+} from '@mui/material';
+/*
 interface User {
     userId: number;
     username: string;
@@ -27,8 +267,8 @@ interface Receiver {
     callReceiverId: number;
     telephone: string;
     user: User;
-}
-
+}*/
+/*
 interface Call {
     callId: number;
     startTime: string;
@@ -43,29 +283,18 @@ interface Call {
     status: string;
     user: User;
     receiver: Receiver;
-}
-
+}*/
+/*
 interface Invoice {
     invoiceId: number;
     invoiceDate: string;
     status: string;
     totalAmount: number;
     calls: Call[];
-}
+}*/
 
-interface Payment {
-    paymentId: number;
-    amount: number;
-    paymentDate: string;
-    fullNameOnPaymentCard: string;
-    cardNumber: string;
-    expiringDate: string;
-    issueNumber: string;
-    securityNumber: string;
-    status: string;
-    invoice: Invoice;
-}
 
+/*
 const PaymentList: React.FC = () => {
     const [payments, setPayments] = useState<Payment[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -131,7 +360,7 @@ const PaymentList: React.FC = () => {
                                 <TableCell>{payment.paymentDate}</TableCell>
                                 <TableCell>{payment.cardNumber.slice(-4)}</TableCell>
                                 <TableCell>{payment.status}</TableCell>
-                                <TableCell>{`${payment.invoice.calls[0].user.firstName} ${payment.invoice.calls[0].user.lastName}`}</TableCell>
+                                <TableCell>{`${payment!.invoice!.calls[0]!.user.firstName} ${payment.invoice.calls[0].user.lastName}`}</TableCell>
                                 <TableCell>{payment.invoice.calls[0].receiver.telephone}</TableCell>
                             </TableRow>
                         ))}
@@ -143,7 +372,7 @@ const PaymentList: React.FC = () => {
 };
 
 export default PaymentList;
-
+*/
 /*
 import React, { useState, useEffect, useContext } from 'react';
 import { getPayments } from '../../services/PaymentService'; 
@@ -180,7 +409,7 @@ interface Call {
     receiver: Receiver;
 }
 
-interface Invoice {
+interface AdminInvoiceTable {
     invoiceId: number;
     invoiceDate: string;
     status: string;
@@ -198,7 +427,7 @@ interface Payment {
     issueNumber: string;
     securityNumber: string;
     status: string;
-    invoice: Invoice;
+    invoice: AdminInvoiceTable;
 }
 
 const PaymentList: React.FC = () => {

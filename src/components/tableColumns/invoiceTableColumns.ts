@@ -1,18 +1,34 @@
+import {Column} from "react-table";
+import { InvoiceData } from '../../store/types'
+import { format } from 'date-fns';
 
-export const COLUMNS = [
+export const COLUMNS:  Column<InvoiceData>[] = [
     {
-        Header: 'Username'
+        Header: 'Invoice Id',
+        accessor: 'invoiceId',
     },
     {
-        Header: 'First Name'
+        Header: 'user',
+        accessor: 'username',
     },
     {
-        Header: 'Last Name'
+        Header: 'Invoice Date',
+        accessor: 'invoiceDate',
+        Cell: ({ value }) => format(new Date(value), 'dd/MM/yyyy'),
     },
     {
-        Header: 'Email Address'
+        Header: 'status',
+        accessor: 'status',
     },
     {
-        Header: 'Phone Number'
-    }
+        Header: 'Total Amount',
+        accessor: 'totalAmount',
+        //Cell: ({ value }) => `$${value.toFixed(2)}`,
+    },
+    {
+        Header: 'Number of Calls',
+        accessor: 'callIds',
+        Cell: ({ value }) => Array.isArray(value) ? value.length : 'N/A',
+    },
+
 ]
