@@ -90,7 +90,7 @@ export async function updateCallStatus(username: string, status: string): Promis
   }
 }
 
-export const enterCall = async (call: Call): Promise<EnterCallResponse> => {
+export const enterCall = async (call: Call) => {
     try {
         const response = await axios.post(
             `${REST_API_BASE_URL}/calls/make-call`,
@@ -100,7 +100,7 @@ export const enterCall = async (call: Call): Promise<EnterCallResponse> => {
             }
         );
         console.log("response from entercall ", response)
-        return response.data; // Ensure this matches your response structure
+        return response.data;
     } catch (error) {
         throw new Error(`Error making call: ${error.message}`);
     }
@@ -166,6 +166,36 @@ export const listCalls = async (): Promise<Call[]> => {
         throw new Error(`Error fetching all calls: ${error.message}`);
     }
 };
+
+//complete the following
+export async function updateCall(username: string): Promise<Call[]> {
+    try {
+        const response = await api.get(
+            REST_API_BASE_URL + `/calls?username=${username}`,
+            {
+                headers: basicHeader,
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching calls by username: ${error.message}`);
+    }
+}
+
+
+export async function deleteCall(username: string): Promise<Call[]> {
+    try {
+        const response = await api.get(
+            REST_API_BASE_URL + `/calls?username=${username}`,
+            {
+                headers: basicHeader,
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching calls by username: ${error.message}`);
+    }
+}
 
 
 

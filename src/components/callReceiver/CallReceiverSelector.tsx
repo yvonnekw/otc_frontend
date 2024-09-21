@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getCallReceiverDetails, CallReceiver } from '../../services/CallReceiverService';
 import { Autocomplete, TextField, Button, Box } from '@mui/material';
-import NewTelephoneNumberForm from '../calls/NewTelephoneNumberForm';
+import NewTelephoneNumberForm from './NewTelephoneNumberForm';
 
 interface CallReceiverSelectorProps {
     handleTelephoneNumberInputChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;

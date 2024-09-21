@@ -34,14 +34,14 @@ const NavBar = () => {
   };
 
   return (
-    <AppBar position="sticky">
-      <Toolbar>
+    <AppBar position="sticky" className='navbar-dark .navbar-nav .nav-link'>
+      <Toolbar className='navbar-dark .navbar-nav .nav-link'>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
             Optical Telephone Company
           </Link>
         </Typography>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className='navbar-dark .navbar-nav .nav-link' style={{ display: 'flex', alignItems: 'center' }}>
           <ul style={{ display: 'flex', listStyle: 'none', padding: 0, margin: 0, marginRight: '10px' }}>
             {isLoggedIn() && role === 'ADMIN' && (
               <li>
@@ -55,7 +55,7 @@ const NavBar = () => {
             color="inherit"
             aria-haspopup="true"
             onClick={handleMenuClick}
-            sx={{ ml: 'auto' }} // Aligns 'Account' button to the right
+            sx={{ ml: 'auto' }}
           >
             Account
           </Button>

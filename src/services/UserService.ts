@@ -1,12 +1,13 @@
 
 import axios from 'axios';
-import { basicHeader, REST_API_BASE_URL, getLoginHeader } from './ApiUtils';
+import {basicHeader, REST_API_BASE_URL, getLoginHeader, api} from './ApiUtils';
 import { toast } from 'react-toastify';
+import {UserUsername, User } from "../store/types";
 
 export interface Authority {
   authority: string;
 }
-
+/*
 export interface User {
   userId: string;
   username: string;
@@ -17,6 +18,7 @@ export interface User {
   password: string;
   authorities: Authority[];
 }
+*/
 
 export interface registerUser {
   firstName: string;
@@ -41,6 +43,32 @@ export async function registerUser(user: Register): Promise<string> {
       headers: basicHeader,
     });
 
+    // Handle both 200 and 201 status codes for successful registration
+    if (response.status === 200 || response.status === 201) {
+      //return (response.data);
+      const { username } = response.data.data; // Extract the username from response data
+      return `${username}`;
+    } else {
+      throw new Error('Failed to register user');
+    }
+  } catch (error) {
+    if (error.response) {
+      // Ensure that error.response.data is defined
+      return error.response.data?.message || 'Failed to register user';
+    } else {
+      console.error('User registration error:', error.message);
+      return 'Failed to register user';
+    }
+  }
+}
+
+/*
+export async function registerUser(user: Register): Promise<string> {
+  try {
+    const response = await axios.post(`${REST_API_BASE_URL}/auth/register`, user, {
+      headers: basicHeader,
+    });
+
     if (response.status === 200) {
       return 'User registered successfully';
     } else {
@@ -55,7 +83,7 @@ export async function registerUser(user: Register): Promise<string> {
     }
   }
 }
-
+*/
 export async function loginUser(user: any): Promise<any> {
   try {
     const response = await axios.post(`${REST_API_BASE_URL}/auth/login`, user, {
@@ -116,7 +144,7 @@ export async function getUser(userId: string): Promise<any> {
   const token = localStorage.getItem('token');
   try {
     const response = await axios.get(`${REST_API_BASE_URL}/user/${userId}`, {
-      headers: getLoginHeader() 
+      headers: { ...basicHeader, Authorization: `Bearer ${token}` },
     });
     return response.data;
   } catch (error) {
@@ -151,6 +179,40 @@ export const getUsername = async (): Promise<string | null> => {
   }
 }
 
+export async function deleteUserByUsername(username: string): Promise<UserUsername[]> {
+  const token = localStorage.getItem('token');
+  console.log("username to delete ", username)
+  console.log("token to authorise deletion ", token)
+  try {
+    const response = await axios.delete(
+        REST_API_BASE_URL + `/user/delete/${username}`,
+        {
+          headers: { ...basicHeader, Authorization: `Bearer ${token}` },
+        }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error deleting user by username: ${error.message}`);
+  }
+}
+
+export async function updateUserByUsername(username: string, updatedUser: User): Promise<UserUsername[]> {
+  const token = localStorage.getItem('token');
+  console.log("username to update ", username)
+  console.log("update data to update ", updatedUser)
+  console.log("token to authorise update ", token)
+  try {
+    const response = await axios.put(
+        REST_API_BASE_URL + `/user/update/${username}`, updatedUser,
+        {
+          headers: { ...basicHeader, Authorization: `Bearer ${token}` },
+        }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error updating user by username: ${error.message}`);
+  }
+}
 
 function handleError(error: any, defaultMessage: string): void {
   if (axios.isAxiosError(error) && error.response) {
@@ -163,3 +225,4 @@ function handleError(error: any, defaultMessage: string): void {
 }
 
 export default handleError;
+

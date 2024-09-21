@@ -3,7 +3,7 @@ import React, { createContext, ReactNode, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 import { RootState } from '../../store/store';
-import { logout, loginSuccess, loginFailure } from '../../store/authSlice'; // Adjust the path as necessary
+import { logout, loginSuccess } from '../../store/authSlice'; // Adjust the path as necessary
 
 interface AuthContextType {
   isLoggedIn: () => boolean;

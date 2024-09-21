@@ -21,6 +21,11 @@ export interface User {
     credentialsNonExpired: boolean;
 }
 
+export interface UserUsername extends User{
+    username: string;
+}
+
+
 // Call Type
 export interface Call {
     callId?: number;

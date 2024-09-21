@@ -76,8 +76,8 @@ const Payment: React.FC = () => {
     <Container maxWidth="md" sx={{ mt: 5 }}>
       <Card>
         <CardContent>
-          <Typography variant="h4" align="center" gutterBottom>
-            Payment
+          <Typography variant="h1" align="center" gutterBottom>
+            Pay For Calls
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12}>
