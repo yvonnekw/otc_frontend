@@ -1,5 +1,3 @@
-// reducers.ts
-
 import { ActionTypes, Call, SET_CALLS, SET_ERROR_MESSAGE, SET_SUCCESS_MESSAGE } from './types';
 
 interface State {
@@ -43,27 +41,3 @@ const callsReducer = (state = initialState, action: ActionTypes): State => {
 
 export default callsReducer;
 
-
-/*
-import { ActionTypes, SET_CALLS } from './types';
-import { CallsState } from './types';
-
-const initialState: CallsState = {
-    calls: [],
-};
-
-const callsReducer = (state = initialState, action: ActionTypes): CallsState => {
-    switch (action.type) {
-        case SET_CALLS:
-            return {
-                ...state,
-                calls: action.payload,
-            };
-        default:
-            return state;
-    }
-};
-
-export default callsReducer;
-
-*/

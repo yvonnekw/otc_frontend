@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import  PaymentList  from "../components/payment/PaymentList"
+import  PaymentList  from "../components/admin/PaymentList"
 import React from "react";
 
 

@@ -2,98 +2,89 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthProvider';
 import {
-  Container,
-  Typography,
-  Button,
-  Box,
-  Alert,
+    Container,
+    Typography,
+    Button,
+    Box,
+    Alert,
 } from '@mui/material';
-import AdminInvoiceTable from "../invoice/AdminInvoiceTable";
+import { AiFillPhone, AiFillFileText, AiFillDollarCircle, AiOutlineUser } from 'react-icons/ai'; // Corrected imports
+import AdminInvoiceTable from "./InvoiceList";
 
 const AdminUI: React.FC = () => {
-  const { role } = useContext(AuthContext);
+    const storedUser = localStorage.getItem('user');
+    const role = storedUser ? JSON.parse(storedUser).role : null;
 
+    if (role !== 'ADMIN') {
+        return (
+            <Container sx={{ mt: 5 }}>
+                <Alert severity="error">You don't have permission to access this page.</Alert>
+            </Container>
+        );
+    }
 
-  if (role !== 'ADMIN') {
     return (
-      <Container sx={{ mt: 5 }}>
-        <Alert severity="error">You don't have permission to access this page.</Alert>
-      </Container>
+        <Container sx={{ mt: 5 }}>
+            <Typography variant="h4" gutterBottom>
+                Welcome to the Admin Panel
+            </Typography>
+            <Box display="flex" flexDirection="column" gap={2} mt={3}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    to="/get-all-calls"
+                    startIcon={<AiFillPhone size={16} />} // Add icon here
+                    sx={{ fontSize: '0.75rem', padding: '5px 10px', width: '30%' }}
+                >
+                    Manage Calls
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    to="/get-all-invoices"
+                    startIcon={<AiFillFileText size={16} />}
+                    sx={{ fontSize: '0.75rem', padding: '5px 10px', width: '30%' }}
+                >
+                    Manage Invoices
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    to="/get-all-payments"
+                    startIcon={<AiFillDollarCircle size={16} />}
+                    sx={{ fontSize: '0.75rem', padding: '5px 10px', width: '30%' }}
+                >
+                    Manage Payments
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    to="/get-all-users"
+                    startIcon={<AiOutlineUser size={16} />}
+                    sx={{ fontSize: '0.75rem', padding: '5px 10px', width: '30%'}}
+                >
+                    Manage Users
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    to="/get-all-receivers"
+                    startIcon={<AiOutlineUser size={16} />}
+                    sx={{ fontSize: '0.75rem', padding: '5px 10px', width: '30%'}}
+                >
+                    Manage User CallReceivers
+                </Button>
+            </Box>
+            <Box mt={5}>
+                <AdminInvoiceTable />
+            </Box>
+        </Container>
     );
-  }
-
-  return (
-    <Container sx={{ mt: 5 }}>
-      <Typography variant="h4" gutterBottom>
-        Welcome to the Admin Panel
-      </Typography>
-      <Box display="flex" flexDirection="column" gap={2} mt={3}>
-        <Button variant="contained" color="primary" component={Link} to="/get-all-calls">
-          Manage Calls
-        </Button>
-        <Button variant="contained" color="primary" component={Link} to="/get-all-invoices">
-          Manage Invoices
-        </Button>
-        <Button variant="contained" color="primary" component={Link} to="/get-all-payments">
-          Manage Payments
-        </Button>
-        <Button variant="contained" color="primary" component={Link} to="/get-all-users">
-          Manage Users
-        </Button>
-      </Box>
-      <Box mt={5}>
-       <AdminInvoiceTable />
-      </Box>
-    </Container>
-  );
 }
 
 export default AdminUI;
-
-
-
-/*
-import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
-
-import ListAllCalls from '../calls/ListAllCalls'
-import { AuthContext } from '../auth/AuthProvider';
-
-const AdminUI: React.FC = () => {
-  const { role } = useContext(AuthContext);
-
-  // Render the page only if the user has the admin role
-  if (role !== "ADMIN") {
-    return <div>You don't have permission to access this page.</div>;
-  }
-
-  return (
-    <>
-      <section className='container mt-5'>
-        <h2>Welcome to the Admin Panel</h2>
-      </section>
-      <Link to={"/get-all-calls"}>
-        Manage Calls
-      </Link>
-      <br></br>
-      <Link to={"/get-all-invoices"}>
-        Manage invoices
-      </Link>
-      <br></br>
-      <Link to={"/get-all-payments"}>
-        Manage Payments
-      </Link>
-      <br></br>
-      <Link to={"/get-all-users"}>
-        Manage Users
-      </Link>
-      <div>
-        <ListAllCalls />
-      </div>
-    </>
-  );
-}
-
-export default AdminUI;
-
-*/

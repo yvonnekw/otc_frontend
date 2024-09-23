@@ -7,7 +7,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
 import Dashboard from './components/Dasboard';
-import ListAllCalls from './components/calls/ListAllCalls';
+import ListAllCalls from './components/admin/ListAllCalls';
 import CallsTable from './components/calls/CallsTable';
 import Profile from './components/auth/Profile';
 import AdminUI from './components/admin/AdminUI';
@@ -15,13 +15,13 @@ import Footer from './components/layout/Footer';
 import NavBar from './components/layout/NavBar';
 import Payment from './components/payment/Payment';
 import RequireAuth from './components/auth/RequireAuth';
-import AdminInvoiceTable from './components/invoice/AdminInvoiceTable';
+import AdminInvoiceTable from './components/admin/InvoiceList';
 import UserInvoiceTable from './components/invoice/UserInvoiceTable';
 import MakeCall from './components/calls/MakeCall';
-import UserList from './components/users/UserList';
-import PaymentList from './components/payment/PaymentList';
+import UserList from './components/admin/UserList';
+import PaymentList from './components/admin/PaymentList';
 import NotFound from './components/notFound/NotFound';
-import NewTelephoneNumberPage from './components/calls/NewTelephoneNumberPage';
+import NewTelephoneNumberPage from './components/callReceiver/NewTelephoneNumberPage';
 import InvoiceTable from './components/invoice/InvoiceTable';
 import PaymentTable from './components/payment/PaymentTable';
 import HeaderMain from './components/layout/HeaderMain';
@@ -29,6 +29,9 @@ import ForgotPassword from './components/ForgotPassword';
 import { RootState } from './store/store';
 import AuthProvider from './components/auth/AuthProvider';
 import UserPaidTable from "./components/payment/UserPaidTable";
+import ResponsiveAppBar from "./components/layout/Nav";
+import UserCallReceiverListTable from "./components/admin/UserCallReceiverListTable";
+import CallReceiverList from './components/admin/CallReceiverList';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -50,8 +53,8 @@ const App: React.FC = () => {
   return (
     <AuthProvider>
       <HeaderMain />
-      <NavBar />
-      <main>
+      <main className="container mt-5" >
+        <ResponsiveAppBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -62,11 +65,13 @@ const App: React.FC = () => {
           <Route path="/get-all-payments" element={<RequireAuth><PaymentList /></RequireAuth>} />
           <Route path="/get-all-users" element={<RequireAuth><UserList /></RequireAuth>} />
           <Route path="/get-all-calls" element={<RequireAuth><ListAllCalls /></RequireAuth>} />
+          <Route path="/get-all-receivers" element={<RequireAuth><CallReceiverList /></RequireAuth>} />
           <Route path="/make-call" element={<RequireAuth><MakeCall /></RequireAuth>} />
           <Route path="/user-calls/pending" element={<RequireAuth><CallsTable userId={user || ''} status="Pending AdminInvoiceTable" /></RequireAuth>} />
           <Route path="/calls/invoiced" element={<RequireAuth><InvoiceTable /></RequireAuth>} />
           <Route path="/user-calls/invoiced" element={<RequireAuth><UserInvoiceTable username={user!} /></RequireAuth>} />
           <Route path="/user-calls/payment" element={<RequireAuth><PaymentTable /></RequireAuth>} />
+          <Route path="/user-call-receiver-list" element={<RequireAuth><UserCallReceiverListTable username={user!} /></RequireAuth>} />
           <Route path="/user-calls/paid" element={<RequireAuth><UserPaidTable username={user!} /></RequireAuth>} />
           <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
           <Route path="/admin" element={<RequireAuth><AdminUI /></RequireAuth>} />

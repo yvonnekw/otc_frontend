@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import authReducer from './authSlice'; // Adjust the path as necessary
-import userReducer from './userReducer'; // Adjust the path as necessary
-import callsReducer from './callReducer'; // Assuming this handles 'calls' slice
-import messageReducer from './messageReducer'; // Assuming this handles 'errorMessage' slice
+import authReducer from './authSlice';
+import userReducer from './userReducer';
+import callsReducer from './callReducer';
+import messageReducer from './messageReducer';
 
 
 

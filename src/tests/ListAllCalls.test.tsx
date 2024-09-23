@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import  ListAllCalls  from "../components/calls/ListAllCalls"
+import  ListAllCalls  from "../components/admin/ListAllCalls"
 import React from "react";
 
 
