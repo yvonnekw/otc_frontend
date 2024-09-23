@@ -30,7 +30,7 @@ import { RootState } from './store/store';
 import AuthProvider from './components/auth/AuthProvider';
 import UserPaidTable from "./components/payment/UserPaidTable";
 import ResponsiveAppBar from "./components/layout/Nav";
-import UserCallReceiverListTable from "./components/callReceiver/UserCallReceiverListTable";
+import UserCallReceiverListTable from "./components/admin/UserCallReceiverListTable";
 import CallReceiverList from './components/admin/CallReceiverList';
 
 const App: React.FC = () => {

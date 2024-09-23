@@ -1,26 +1,7 @@
 import axios from "axios";
 import { basicHeader, REST_API_BASE_URL, getLoginHeader } from "./ApiUtils";
 import { InvoiceData } from '../store/types';
-/*
-export interface InvoiceData {
-  totalAmount: string;
-  status: string;
-  invoiceId: string;
-  calls: CallData[];
-  invoiceDate: string;
-}
-*/
-/*
-interface CallData {
-  callId: number;
-  user: UserData;
-}
-*/
-/*
-interface UserData {
-  userId: number;
-}
-*/
+
 export async function invoice(invoiceBody: any): Promise<any> {
   try {
     const response = await axios.post(

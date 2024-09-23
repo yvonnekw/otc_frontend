@@ -4,13 +4,48 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b832a095-cbcb-4514-8b18-01a51f7c7236" name="Changes" comment="managing user and data&#10;&#10;Improve auth">
+    <list default="true" id="b832a095-cbcb-4514-8b18-01a51f7c7236" name="Changes" comment="fix ci error RollupError: Could not resolve &quot;./assets/account-50.png&quot; from &quot;src/components/layout/Nav.tsx&quot;">
+      <change afterPath="$PROJECT_DIR$/src/components/admin/UserCallReceiverListTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dasboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dasboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminUI.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminUI.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/CallReceiverList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/CallReceiverList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/InvoiceList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/InvoiceList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/ListAllCalls.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/ListAllCalls.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/PaymentList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/PaymentList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/UserList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/UserList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/AuthProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/AuthProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/Logout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/Logout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/RequireAuth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/RequireAuth.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/Unauthorized.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/Unauthorized.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/callReceiver/CallReceiverSelector.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/callReceiver/CallReceiverSelector.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/callReceiver/NewTelephoneNumberForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/callReceiver/NewTelephoneNumberForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/callReceiver/NewTelephoneNumberPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/callReceiver/NewTelephoneNumberPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/callReceiver/UserCallReceiverListTable.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/calls/CallsTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/CallsTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/calls/MakeCall.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calls/MakeCall.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/Parallax.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Parallax.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/invoice/UserInvoiceTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/invoice/UserInvoiceTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/Nav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Nav.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/NavBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/NavBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/notFound/NotFound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/notFound/NotFound.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/payment/Payment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/payment/Payment.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/payment/UserPaidTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/payment/UserPaidTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/CallService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CallService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/InvoiceService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/InvoiceService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/authSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/authSlice.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/callReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/callReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/callsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/callsSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/combinedReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/combinedReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/store.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +54,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -35,19 +75,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;enable__make__call__input__fields&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/yvonnek/javaProject/otc_project/otc_frontend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/yvonnek/javaProject/otc_project/otc_frontend/node_modules/typescript/lib&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Vitest.Admin UI accessiblity tests.should verify the home welcome message is heading 1.executor": "Run",
+    "git-widget-placeholder": "fix-problems-and-refactoring",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/yvonnek/javaProject/otc_project/otc_frontend/src/components/admin",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/yvonnek/javaProject/otc_project/otc_frontend/node_modules/typescript/lib"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/admin" />
+      <recent name="$PROJECT_DIR$/src/components/callReceiver" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/admin" />
+      <recent name="$PROJECT_DIR$/src/components/callReceiver" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
       <option name="appName" />
@@ -79,6 +130,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Admin UI accessiblity tests.should verify the home welcome message is heading 1" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/tests/AdminUI.test.tsx" />
+      <test-names>
+        <test-name value="Admin UI accessiblity tests" />
+        <test-name value="should verify the home welcome message is heading 1" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Vitest.Admin UI accessiblity tests.should verify the home welcome message is heading 1" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -105,26 +175,44 @@
       <option name="project" value="LOCAL" />
       <updated>1723755142276</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="refactoring and fixing errors.">
+      <option name="closed" value="true" />
+      <created>1726954726578</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726954726578</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix ci error RollupError: Could not resolve &quot;./assets/account-50.png&quot; from &quot;src/components/layout/Nav.tsx&quot;">
+      <option name="closed" value="true" />
+      <created>1727081715627</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1727081715627</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge pull request #10 from yvonnekw/improve_auth&#10;&#10;Improve auth" />
     <MESSAGE value="managing user and data&#10;&#10;Improve auth" />
-    <option name="LAST_COMMIT_MESSAGE" value="managing user and data&#10;&#10;Improve auth" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/store/callsSlice.ts</url>
-          <line>46</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="refactoring and fixing errors." />
+    <MESSAGE value="fix ci error RollupError: Could not resolve &quot;./assets/account-50.png&quot; from &quot;src/components/layout/Nav.tsx&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix ci error RollupError: Could not resolve &quot;./assets/account-50.png&quot; from &quot;src/components/layout/Nav.tsx&quot;" />
   </component>
 </project>

@@ -51,8 +51,6 @@ https://github.com/yvonnekw/otc_backend
 
 ### Tasks and bugs to fix
 
-1. New Registered User needs to be able to create a call: task_1
-2. New Registered User needs to be able to view their profile
-3. add login profile in the Nav menu and move you are login as message
-3. Add success message for successfully registering
-4. Add Successs message for successfully logging in.
+1. Component tests needs fixing.
+2. Various pages has a typescript error that needs fixing
+3. Ci pipeline to run component tests needs fixing
